@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tour extends Model
 {
@@ -18,11 +19,15 @@ class Tour extends Model
         'user_id',
         'start_date',
         'end_date',
-        'total_duration',
 
         'max_people',
         'min_people',
         'current_people',
         'status',
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tours', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            $table->id();
             $table->string('name');
             $table->text('description');
             $table->unsignedBigInteger('price');
@@ -22,7 +22,6 @@ return new class extends Migration
 
             $table->timestamp('start_date');
             $table->timestamp('end_date');
-            $table->unsignedInteger('total_duration');
 
             $table->unsignedInteger('max_people');
             $table->unsignedInteger('min_people');

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('itineraries', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignUuid('tour_id')->constrained()->onDelete('cascade');
+            $table->id();
+            $table->foreignId('tour_id')->constrained()->onDelete('cascade');
 
             $table->unsignedInteger('days_number')->default(1);
             $table->unsignedInteger('order')->default(1);

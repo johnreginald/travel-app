@@ -18,21 +18,24 @@ class TourFactory extends Factory
      */
     public function definition(): array
     {
+        $maxPeople = $this->faker->numberBetween(1, 100);
+        $minPeople = $this->faker->numberBetween(1, $maxPeople);
+        $currentPeople = $this->faker->numberBetween($minPeople, $maxPeople);
+
         return [
             'name' => $this->faker->city,
             'description' => $this->faker->text,
-            'price' => $this->faker->randomFloat(2, 0, 999999.99),
+            'price' => $this->faker->numberBetween(100, 10000),
             'image' => $this->faker->imageUrl(),
 
             'user_id' => User::factory()->create()->id,
 
-            'start_date' => $this->faker->dateTimeBetween('now', '+1 months'),
-            'end_date' => $this->faker->dateTimeBetween('+1 months', '+2 months'),
-            'total_duration' => $this->faker->numberBetween(1, 30),
+            'start_date' => $this->faker->dateTimeBetween('now', '+1 months')->format('Y-m-d'),
+            'end_date' => $this->faker->dateTimeBetween('+1 months', '+2 months')->format('Y-m-d'),
 
-            'max_people' => $this->faker->numberBetween(1, 100),
-            'min_people' => $this->faker->numberBetween(1, 100),
-            'current_people' => $this->faker->numberBetween(1, 100),
+            'max_people' => $maxPeople,
+            'min_people' => $minPeople,
+            'current_people' => $currentPeople,
             'status' => $this->faker->randomElement(['public', 'private']),
         ];
     }
