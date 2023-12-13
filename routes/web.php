@@ -40,4 +40,4 @@ Route::resource('tours', TourController::class)
     ->only(['index', 'store'])
     ->middleware(['auth', 'verified']);
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
