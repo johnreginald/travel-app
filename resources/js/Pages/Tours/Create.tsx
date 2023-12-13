@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, useForm} from '@inertiajs/react';
 import {PageProps} from "@/types";
@@ -9,7 +9,7 @@ export default function Create({auth}: PageProps) {
         name: '',
         description: '',
         price: '',
-        image: null,
+        image: new File([], ''),
         start_date: '',
         end_date: '',
         max_people: '',
@@ -21,6 +21,12 @@ export default function Create({auth}: PageProps) {
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         post(route('tours.store'), {onSuccess: () => reset()});
+    };
+
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setData('image', e.target.files[0]);
+        }
     };
 
     return (
@@ -88,7 +94,7 @@ export default function Create({auth}: PageProps) {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="file"
                             id="image"
-                            onChange={e => setData('image', e.target.files[0])}
+                            onChange={handleFileChange}
                         />
                         <InputError message={errors.image} className="mt-2"/>
                     </div>
