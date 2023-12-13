@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TourCreateRequest;
+use App\Http\Requests\TourRequest;
 use App\Models\Tour;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class TourController extends Controller
 {
@@ -22,7 +23,7 @@ class TourController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TourCreateRequest $request)
+    public function store(TourRequest $request)
     {
         auth()->user()->tours()->create($request->validated());
 
@@ -32,9 +33,9 @@ class TourController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response
     {
-        //
+        return Inertia::render('Tours/Create');
     }
 
     /**
@@ -50,15 +51,17 @@ class TourController extends Controller
      */
     public function edit(Tour $tour)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tour $tour)
+    public function update(TourRequest $request, Tour $tour): RedirectResponse
     {
-        //
+        $tour->update($request->validated());
+
+        return redirect()->route('tours.index');
     }
 
     /**
@@ -66,6 +69,8 @@ class TourController extends Controller
      */
     public function destroy(Tour $tour)
     {
-        //
+        $tour->delete();
+
+        return redirect()->route('tours.index');
     }
 }
