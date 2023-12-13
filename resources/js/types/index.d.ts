@@ -21,6 +21,11 @@ export interface Tour {
     min_people: number;
     current_people: number;
     status: string;
+
+    human_readable_status: string;
+    human_readable_price: string;
+    human_readable_start_date: string;
+    human_readable_end_date: string;
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {

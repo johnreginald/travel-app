@@ -33,9 +33,36 @@ class Tour extends Model
         'end_date' => 'datetime:Y-m-d',
     ];
 
+    protected $appends = [
+        'human_readable_status',
+        'human_readable_price',
+        'human_readable_start_date',
+        'human_readable_end_date',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getHumanReadableStatusAttribute(): string
+    {
+        return ucfirst($this->status);
+    }
+
+    public function getHumanReadablePriceAttribute(): string
+    {
+        return '$'.$this->price;
+    }
+
+    public function getHumanReadableStartDateAttribute(): string
+    {
+        return $this->start_date->format('d M, Y');
+    }
+
+    public function getHumanReadableEndDateAttribute(): string
+    {
+        return $this->end_date->format('d M, Y');
     }
 
     protected function image(): Attribute

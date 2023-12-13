@@ -4,6 +4,7 @@ import {Head, Link, router} from '@inertiajs/react';
 import {PageProps} from "@/types";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
+import {FaEdit, FaEye, FaTrash} from "react-icons/fa";
 
 export default function Index({auth, tours}: PageProps) {
     const deleteTour = (id: number) => {
@@ -62,7 +63,8 @@ export default function Index({auth, tours}: PageProps) {
                         <tr key={tour.id}>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex items-center">
-                                    <img src={tour.image} alt="tour image" className="w-20 h-20 rounded"/>
+                                    <img src={tour.image} alt="tour image"
+                                         className="w-20 h-20 rounded object-cover"/>
                                     <div className="ml-4 text-gray-900 text-base">{tour.name}</div>
                                 </div>
                             </td>
@@ -74,12 +76,20 @@ export default function Index({auth, tours}: PageProps) {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex gap-2">
+                                    <Link href={route('tours.show', tour.id)}>
+                                        <PrimaryButton className={"py-2"}>
+                                            <FaEye/>
+                                        </PrimaryButton>
+                                    </Link>
+
                                     <Link href={route('tours.edit', tour.id)}>
-                                        <PrimaryButton>Edit</PrimaryButton>
+                                        <PrimaryButton className={"py-2"}>
+                                            <FaEdit/>
+                                        </PrimaryButton>
                                     </Link>
 
                                     <SecondaryButton onClick={() => deleteTour(tour.id)}>
-                                        Delete
+                                        <FaTrash/>
                                     </SecondaryButton>
                                 </div>
                             </td>
