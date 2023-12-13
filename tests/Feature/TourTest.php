@@ -2,6 +2,7 @@
 
 use App\Models\Tour;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 
 test('Create Tour', function () {
     $user = User::factory()->create();
@@ -10,11 +11,13 @@ test('Create Tour', function () {
         'user_id' => $user->id,
     ]);
 
-    $this->response = $this->actingAs($user)->post(route('tours.store'), $tour->toArray());
+    $image = UploadedFile::fake()->image('image.jpg');
+
+    $this->response = $this->actingAs($user)->post(route('tours.store'), array_merge($tour->toArray(), ['image' => $image]));
 
     $this->response->assertStatus(302);
 
-    $this->assertDatabaseHas('tours', $tour->toArray());
+    $this->assertDatabaseHas('tours', array_merge($tour->toArray(), ['image' => 'images/'.$image->hashName()]));
 });
 
 test('Edit Tour', function () {
@@ -26,11 +29,13 @@ test('Edit Tour', function () {
 
     $tour->name = $tour->name.' Edited';
 
-    $this->response = $this->actingAs($user)->put(route('tours.update', $tour->id), $tour->toArray());
+    $image = UploadedFile::fake()->image('image.jpg');
+
+    $this->response = $this->actingAs($user)->put(route('tours.update', $tour->id), array_merge($tour->toArray(), ['image' => $image]));
 
     $this->response->assertStatus(302);
 
-    $this->assertDatabaseHas('tours', $tour->toArray());
+    $this->assertDatabaseHas('tours', array_merge($tour->toArray(), ['image' => 'images/'.$image->hashName()]));
 });
 
 test('Delete Tour', function () {

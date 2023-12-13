@@ -9,7 +9,7 @@ export default function Create({auth}: PageProps) {
         name: '',
         description: '',
         price: '',
-        image: '',
+        image: null,
         start_date: '',
         end_date: '',
         max_people: '',
@@ -35,7 +35,7 @@ export default function Create({auth}: PageProps) {
                       className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
                     <h4 className="mb-5 text-lg">Create Tour</h4>
-                    
+
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                             Name
@@ -88,8 +88,7 @@ export default function Create({auth}: PageProps) {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             type="file"
                             id="image"
-                            value={data.image}
-                            onChange={e => setData('image', e.target.value)}
+                            onChange={e => setData('image', e.target.files[0])}
                         />
                         <InputError message={errors.image} className="mt-2"/>
                     </div>

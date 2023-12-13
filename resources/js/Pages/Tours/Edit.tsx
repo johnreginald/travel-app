@@ -1,17 +1,24 @@
 import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, useForm} from '@inertiajs/react';
+import {Head, router, useForm} from '@inertiajs/react';
 import {PageProps} from "@/types";
 import InputError from "@/Components/InputError";
 
 export default function Edit({auth, tour}: PageProps) {
-    const {data, setData, put, processing, reset, errors} = useForm({
+    const {data, setData, post, processing, reset, errors} = useForm({
         ...tour,
     });
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        put(route('tours.update', tour.id), {onSuccess: () => reset()});
+        router.post(route('tours.update', tour.id), {
+            _method: 'put',
+            ...data,
+        }, {
+            onSuccess: () => {
+                reset();
+            },
+        });
     };
 
     return (
@@ -71,6 +78,23 @@ export default function Edit({auth, tour}: PageProps) {
                         <InputError message={errors.price} className="mt-2"/>
                     </div>
 
+                    <div className="mb-4">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
+                            Image
+                        </label>
+
+                        {typeof data.image === 'string' && (
+                            <img src={data.image} alt={data.name} className="w-1/4 mb-5"/>
+                        )}
+
+                        <input
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            type="file"
+                            id="image"
+                            onChange={e => setData('image', e.target.files[0])}
+                        />
+                        <InputError message={errors.image} className="mt-2"/>
+                    </div>
 
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="start_date">

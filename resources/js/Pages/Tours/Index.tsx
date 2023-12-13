@@ -1,10 +1,15 @@
 import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, Link} from '@inertiajs/react';
+import {Head, Link, router} from '@inertiajs/react';
 import {PageProps} from "@/types";
 import PrimaryButton from "@/Components/PrimaryButton";
+import SecondaryButton from "@/Components/SecondaryButton";
 
 export default function Index({auth, tours}: PageProps) {
+    const deleteTour = (id: number) => {
+        router.delete(route('tours.destroy', id));
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -45,10 +50,21 @@ export default function Index({auth, tours}: PageProps) {
                     </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
+                    {tours.length === 0 &&
+                        <tr>
+                            <td colSpan={4} className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-900">No tours found.</div>
+                            </td>
+                        </tr>
+                    }
+
                     {tours.map((tour) => (
                         <tr key={tour.id}>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">{tour.name}</div>
+                                <div className="flex items-center">
+                                    <img src={tour.image} alt="tour image" className="w-20 h-20 rounded"/>
+                                    <div className="ml-4 text-gray-900 text-base">{tour.name}</div>
+                                </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{tour.description}</div>
@@ -57,9 +73,15 @@ export default function Index({auth, tours}: PageProps) {
                                 <div className="text-sm text-gray-900">{tour.price}</div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                <Link href={route('tours.edit', tour.id)}>
-                                    <PrimaryButton>Edit</PrimaryButton>
-                                </Link>
+                                <div className="flex gap-2">
+                                    <Link href={route('tours.edit', tour.id)}>
+                                        <PrimaryButton>Edit</PrimaryButton>
+                                    </Link>
+
+                                    <SecondaryButton onClick={() => deleteTour(tour.id)}>
+                                        Delete
+                                    </SecondaryButton>
+                                </div>
                             </td>
                         </tr>
                     ))}

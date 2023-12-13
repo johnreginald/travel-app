@@ -10,7 +10,7 @@ export interface Tour {
     name: string;
     description: string;
     price: number;
-    image: string;
+    image?: File | string | null;
     created_at: string;
     updated_at: string;
 

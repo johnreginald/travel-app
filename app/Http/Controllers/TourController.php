@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TourRequest;
+use App\Http\Requests\TourCreateRequest;
+use App\Http\Requests\TourUpdateRequest;
 use App\Models\Tour;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -18,24 +19,6 @@ class TourController extends Controller
         return Inertia::render('Tours/Index', [
             'tours' => Tour::latest()->get(),
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(TourRequest $request)
-    {
-        auth()->user()->tours()->create($request->validated());
-
-        return redirect()->route('tours.index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): Response
-    {
-        return Inertia::render('Tours/Create');
     }
 
     /**
@@ -59,11 +42,35 @@ class TourController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(TourRequest $request, Tour $tour): RedirectResponse
+    public function update(TourUpdateRequest $request, Tour $tour): RedirectResponse
     {
-        $tour->update($request->validated());
+        $image = $request->file('image')->store('images');
+
+        $tour->update(array_merge($request->validated(), ['image' => $image]));
 
         return redirect()->route('tours.index');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(TourCreateRequest $request)
+    {
+        $image = $request->file('image')->store('images');
+
+        auth()->user()->tours()->create(
+            array_merge($request->validated(), ['image' => $image])
+        );
+
+        return redirect()->route('tours.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): Response
+    {
+        return Inertia::render('Tours/Create');
     }
 
     /**

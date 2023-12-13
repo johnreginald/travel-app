@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Tour;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\UploadedFile;
 
 /**
  * @extends Factory<Tour>
@@ -26,7 +27,7 @@ class TourFactory extends Factory
             'name' => $this->faker->city,
             'description' => $this->faker->text,
             'price' => $this->faker->numberBetween(100, 10000),
-            'image' => $this->faker->imageUrl(),
+            'image' => UploadedFile::fake()->image('image.jpg')->hashName(),
 
             'user_id' => User::factory()->create()->id,
 
