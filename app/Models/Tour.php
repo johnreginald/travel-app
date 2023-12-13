@@ -14,6 +14,15 @@ class Tour extends Model
         'description',
         'price',
         'image',
+
         'user_id',
+        'start_date',
+        'end_date',
+        'total_duration',
+
+        'max_people',
+        'min_people',
+        'current_people',
+        'status',
     ];
 }
