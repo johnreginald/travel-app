@@ -4,23 +4,14 @@ import {Head, useForm} from '@inertiajs/react';
 import {PageProps} from "@/types";
 import InputError from "@/Components/InputError";
 
-export default function Create({auth}: PageProps) {
-    const {data, setData, post, processing, reset, errors} = useForm({
-        name: '',
-        description: '',
-        price: '',
-        image: '',
-        start_date: '',
-        end_date: '',
-        max_people: '',
-        min_people: '',
-        current_people: '',
-        status: 'public',
+export default function Edit({auth, tour}: PageProps) {
+    const {data, setData, put, processing, reset, errors} = useForm({
+        ...tour,
     });
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        post(route('tours.store'), {onSuccess: () => reset()});
+        put(route('tours.update', tour.id), {onSuccess: () => reset()});
     };
 
     return (
@@ -34,8 +25,8 @@ export default function Create({auth}: PageProps) {
                 <form onSubmit={submit}
                       className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
-                    <h4 className="mb-5 text-lg">Create Tour</h4>
-                    
+                    <h4 className="mb-5 text-lg">Update Tour - {tour.name}</h4>
+
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
                             Name
@@ -75,24 +66,11 @@ export default function Create({auth}: PageProps) {
                             id="price" type="number"
                             placeholder="Price"
                             value={data.price}
-                            onChange={e => setData('price', e.target.value)}
+                            onChange={e => setData('price', parseInt(e.target.value))}
                         />
                         <InputError message={errors.price} className="mt-2"/>
                     </div>
 
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
-                            Image
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            type="file"
-                            id="image"
-                            value={data.image}
-                            onChange={e => setData('image', e.target.value)}
-                        />
-                        <InputError message={errors.image} className="mt-2"/>
-                    </div>
 
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="start_date">
@@ -132,7 +110,7 @@ export default function Create({auth}: PageProps) {
                             id="max_people" type="number"
                             placeholder="Max People"
                             value={data.max_people}
-                            onChange={e => setData('max_people', e.target.value)}
+                            onChange={e => setData('max_people', parseInt(e.target.value))}
                         />
                         <InputError message={errors.max_people} className="mt-2"/>
                     </div>
@@ -146,7 +124,7 @@ export default function Create({auth}: PageProps) {
                             id="max_people" type="number"
                             placeholder="Min People"
                             value={data.min_people}
-                            onChange={e => setData('min_people', e.target.value)}
+                            onChange={e => setData('min_people', parseInt(e.target.value))}
                         />
                         <InputError message={errors.max_people} className="mt-2"/>
                     </div>
@@ -160,7 +138,7 @@ export default function Create({auth}: PageProps) {
                             id="current_people" type="number"
                             placeholder="Current People"
                             value={data.current_people}
-                            onChange={e => setData('current_people', e.target.value)}
+                            onChange={e => setData('current_people', parseInt(e.target.value))}
                         />
                         <InputError message={errors.current_people} className="mt-2"/>
                     </div>
@@ -185,7 +163,7 @@ export default function Create({auth}: PageProps) {
                         <button
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             type="submit">
-                            Create
+                            Update
                         </button>
                     </div>
                 </form>

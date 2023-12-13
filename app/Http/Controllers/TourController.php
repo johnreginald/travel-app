@@ -16,7 +16,7 @@ class TourController extends Controller
     public function index()
     {
         return Inertia::render('Tours/Index', [
-            'tours' => Tour::all(),
+            'tours' => Tour::latest()->get(),
         ]);
     }
 
@@ -51,7 +51,9 @@ class TourController extends Controller
      */
     public function edit(Tour $tour)
     {
-
+        return Inertia::render('Tours/Edit', [
+            'tour' => $tour,
+        ]);
     }
 
     /**
