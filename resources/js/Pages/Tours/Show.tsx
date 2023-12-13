@@ -26,7 +26,7 @@ export default function Show({auth, tour}: PageProps) {
                     <p className="mb-5"><b>Start Date</b> - {tour.human_readable_start_date} ~ <b>End
                         Date</b> - {tour.human_readable_end_date}</p>
 
-                    <p className="mb-5">Group Size - mininum <b>{tour.min_people}</b> to
+                    <p className="mb-5">Group Size - minimum <b>{tour.min_people}</b> to
                         maximum <b>{tour.max_people}</b> (current ~ {tour.current_people})</p>
                 </div>
             </div>
