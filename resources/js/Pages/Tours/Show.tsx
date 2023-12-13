@@ -14,7 +14,7 @@ export default function Show({auth, tour}: PageProps) {
             <div className="mt-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
-                    <img src={tour.image} alt={tour.name}
+                    <img src={tour.image_url} alt={tour.name}
                          className="mb-5 border rounded-lg shadow"/>
 
                     <h4 className="mb-5 text-lg">{tour.name} - {tour.human_readable_status} Tour</h4>

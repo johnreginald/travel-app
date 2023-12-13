@@ -26,6 +26,7 @@ export interface Tour {
     human_readable_price: string;
     human_readable_start_date: string;
     human_readable_end_date: string;
+    image_url: string;
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {

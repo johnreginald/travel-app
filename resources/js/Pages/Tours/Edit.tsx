@@ -11,6 +11,7 @@ export default function Edit({auth, tour}: PageProps) {
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
         router.post(route('tours.update', tour.id), {
             _method: 'put',
             ...data,
@@ -84,7 +85,7 @@ export default function Edit({auth, tour}: PageProps) {
                         </label>
 
                         {typeof data.image === 'string' && (
-                            <img src={data.image} alt={data.name} className="w-1/4 mb-5"/>
+                            <img src={data.image_url} alt={data.name} className="w-1/4 mb-5"/>
                         )}
 
                         <input

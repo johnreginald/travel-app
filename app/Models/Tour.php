@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,6 +37,7 @@ class Tour extends Model
         'human_readable_price',
         'human_readable_start_date',
         'human_readable_end_date',
+        'image_url',
     ];
 
     public function user(): BelongsTo
@@ -65,10 +65,8 @@ class Tour extends Model
         return $this->end_date->format('d M, Y');
     }
 
-    protected function image(): Attribute
+    public function getImageUrlAttribute(): string
     {
-        return Attribute::make(
-            get: fn (string $value) => Storage::url($value),
-        );
+        return Storage::url($this->image);
     }
 }

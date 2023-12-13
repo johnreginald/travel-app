@@ -38,11 +38,19 @@ export default function Index({auth, tours}: PageProps) {
                         </th>
                         <th scope="col"
                             className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                            Description
+                            Status
                         </th>
                         <th scope="col"
                             className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                             Price
+                        </th>
+                        <th scope="col"
+                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                            Start Date
+                        </th>
+                        <th scope="col"
+                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                            End Date
                         </th>
                         <th scope="col"
                             className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -63,16 +71,22 @@ export default function Index({auth, tours}: PageProps) {
                         <tr key={tour.id}>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex items-center">
-                                    <img src={tour.image} alt="tour image"
+                                    <img src={tour.image_url} alt="tour image"
                                          className="w-20 h-20 rounded object-cover"/>
                                     <div className="ml-4 text-gray-900 text-base">{tour.name}</div>
                                 </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">{tour.description}</div>
+                                <div className="text-sm text-gray-900">{tour.human_readable_status}</div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">{tour.price}</div>
+                                <div className="text-sm text-gray-900">{tour.human_readable_price}</div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-900">{tour.human_readable_start_date}</div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-900">{tour.human_readable_end_date}</div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex gap-2">

@@ -46,9 +46,11 @@ class TourController extends Controller
      */
     public function update(TourUpdateRequest $request, Tour $tour): RedirectResponse
     {
-        $image = $request->file('image')->store('images');
+        if ($request->hasFile('image')) {
+            $image = $request->file('image')->store('images');
+        }
 
-        $tour->update(array_merge($request->validated(), ['image' => $image]));
+        $tour->update(array_merge($request->validated(), ['image' => $image ?? $tour->image]));
 
         return redirect()->route('tours.index');
     }
