@@ -18,7 +18,7 @@ export default function Create({auth}: PageProps) {
         status: 'public',
     });
 
-    const submit = (e) => {
+    const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         post(route('tours.store'), {onSuccess: () => reset()});
     };
