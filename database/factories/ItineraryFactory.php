@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<Model>
  */
-class ItinerarySeederFactory extends Factory
+class ItineraryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -29,8 +29,8 @@ class ItinerarySeederFactory extends Factory
             'leisure' => $this->faker->text(100),
             'travel_by' => $this->faker->text(100),
 
-            'start_at' => $this->faker->dateTime(),
-            'end_at' => $this->faker->dateTime(),
+            'start_at' => $this->faker->dateTimeBetween('now', '+1 months')->format('Y-m-d'),
+            'end_at' => $this->faker->dateTimeBetween('+1 months', '+2 months')->format('Y-m-d'),
 
             'location' => $this->faker->text(100),
             'activities' => $this->faker->text(100),

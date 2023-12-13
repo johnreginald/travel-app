@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends Factory<Model>
  */
-class BookingSeederFactory extends Factory
+class BookingFactory extends Factory
 {
     /**
      * Define the model's default state.

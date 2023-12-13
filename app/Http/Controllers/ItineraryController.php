@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ItineraryRequest;
 use App\Models\Itinerary;
-use Illuminate\Http\Request;
+use App\Models\Tour;
+use Illuminate\Http\RedirectResponse;
 
 class ItineraryController extends Controller
 {
@@ -16,17 +18,19 @@ class ItineraryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Store a newly created resource in storage.
      */
-    public function create()
+    public function store(ItineraryRequest $request, Tour $tour): RedirectResponse
     {
-        //
+        $tour->itineraries()->create($request->validated());
+
+        return redirect()->route('tours.show', $tour->id);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Show the form for creating a new resource.
      */
-    public function store(Request $request)
+    public function create()
     {
         //
     }
@@ -50,16 +54,20 @@ class ItineraryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Itinerary $itinerary)
+    public function update(ItineraryRequest $request, Tour $tour, Itinerary $itinerary): RedirectResponse
     {
-        //
+        $itinerary->update($request->validated());
+
+        return redirect()->route('tours.show', $tour->id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Itinerary $itinerary)
+    public function destroy(Tour $tour, Itinerary $itinerary): RedirectResponse
     {
-        //
+        $itinerary->delete();
+
+        return redirect()->route('tours.show', $itinerary->tour_id);
     }
 }

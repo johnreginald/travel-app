@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItineraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TourController;
 use Illuminate\Foundation\Application;
@@ -37,5 +38,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('tours', TourController::class)->middleware(['auth', 'verified']);
+Route::resource('tours/{tour}/itineraries', ItineraryController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
