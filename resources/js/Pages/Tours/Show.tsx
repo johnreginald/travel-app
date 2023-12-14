@@ -3,9 +3,12 @@ import React from "react";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {PageProps} from "@/types";
 import PrimaryButton from "@/Components/PrimaryButton";
+import {FaEdit, FaTrash} from "react-icons/fa";
 
 export default function Show({auth, tour}: PageProps) {
-    console.log(tour.itineraries)
+    const deleteItinerary = (id: number) => {
+
+    }
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -44,7 +47,24 @@ export default function Show({auth, tour}: PageProps) {
 
                 {tour.itineraries.map(itinerary => (
                     <div className="bg-white shadow-md" key={itinerary.id}>
-                        <h4 className="text-lg bg-sky-500 px-8 py-1 text-white">{itinerary.human_readable_days_number}</h4>
+                        <div className="bg-sky-500 px-8 py-1 flex justify-between items-center">
+                            <h4 className="text-lg text-white">{itinerary.human_readable_days_number}</h4>
+                            <div className="flex gap-2">
+                                <Link href={route('itineraries.edit', {
+                                    tour: tour.id,
+                                    itinerary: itinerary.id
+                                })}>
+                                    <div className="text-gray-900">
+                                        <FaEdit/>
+                                    </div>
+                                </Link>
+
+                                <div className="text-red-600 cursor-pointer" onClick={() => deleteItinerary(tour.id)}>
+                                    <FaTrash/>
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="px-8 py-3">
                             <p className="mb-5"><b>Destination:</b> {itinerary.destination}</p>
                             <p className="mb-5"><b>Location:</b> {itinerary.location}</p>
