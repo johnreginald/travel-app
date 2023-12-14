@@ -16,15 +16,14 @@ return new class extends Migration
             $table->foreignId('tour_id')->constrained()->onDelete('cascade');
 
             $table->unsignedInteger('days_number')->default(1);
-            $table->unsignedInteger('order')->default(1);
 
             $table->text('destination')->nullable();
             $table->text('eat')->nullable();
             $table->text('leisure')->nullable();
             $table->text('travel_by')->nullable();
 
-            $table->timestamp('start_at')->nullable();
-            $table->timestamp('end_at')->nullable();
+            $table->time('start_at')->nullable();
+            $table->time('end_at')->nullable();
 
             $table->text('location')->nullable();
             $table->text('activities')->nullable();

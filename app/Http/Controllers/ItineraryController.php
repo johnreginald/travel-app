@@ -6,6 +6,7 @@ use App\Http\Requests\ItineraryRequest;
 use App\Models\Itinerary;
 use App\Models\Tour;
 use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
 
 class ItineraryController extends Controller
 {
@@ -30,9 +31,11 @@ class ItineraryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Tour $tour)
     {
-        //
+        return Inertia::render('Itineraries/Create', [
+            'tour' => $tour,
+        ]);
     }
 
     /**

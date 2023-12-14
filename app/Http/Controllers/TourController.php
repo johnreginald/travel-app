@@ -27,7 +27,9 @@ class TourController extends Controller
     public function show(Tour $tour)
     {
         return Inertia::render('Tours/Show', [
-            'tour' => $tour->load('itineraries'),
+            'tour' => $tour->load(['itineraries' => function ($query) {
+                return $query->orderBy('days_number', 'asc');
+            }]),
         ]);
     }
 

@@ -22,8 +22,6 @@ export interface Itinerary {
     other_details: string;
 
     human_readable_days_number: string;
-    human_readable_start_at: string;
-    human_readable_end_at: string;
 }
 
 export interface Tour {

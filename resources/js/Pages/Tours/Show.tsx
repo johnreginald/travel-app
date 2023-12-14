@@ -13,7 +13,7 @@ export default function Show({auth, tour}: PageProps) {
         >
             <Head title="Tours"/>
 
-            <div className="mt-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div className="my-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
                     <img src={tour.image_url} alt={tour.name}
@@ -33,7 +33,7 @@ export default function Show({auth, tour}: PageProps) {
                 </div>
             </div>
 
-            <div className="mt-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto sm:px-6 lg:px-8 pb-10">
 
                 <div className="flex">
                     <h2 className="mb-5 text-lg text-bold mr-5">Itineraries</h2>
@@ -42,16 +42,15 @@ export default function Show({auth, tour}: PageProps) {
                     </Link>
                 </div>
 
-
                 {tour.itineraries.map(itinerary => (
-                    <div className="bg-white shadow-md rounded" key={itinerary.id}>
+                    <div className="bg-white shadow-md" key={itinerary.id}>
                         <h4 className="text-lg bg-sky-500 px-8 py-1 text-white">{itinerary.human_readable_days_number}</h4>
-                        <div className="px-8 py-3 mb-4">
+                        <div className="px-8 py-3">
                             <p className="mb-5"><b>Destination:</b> {itinerary.destination}</p>
                             <p className="mb-5"><b>Location:</b> {itinerary.location}</p>
                             <p className="mb-5">
-                                <b>Start at</b> - {itinerary.human_readable_start_at} ~ <b>End
-                                at</b> - {itinerary.human_readable_end_at}
+                                <b>Start at</b> - {itinerary.start_at} ~ <b>End
+                                at</b> - {itinerary.end_at}
                             </p>
                             <p className="mb-5"><b>Transport:</b> {itinerary.travel_by}</p>
                             <p>

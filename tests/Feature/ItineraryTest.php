@@ -4,7 +4,7 @@ use App\Models\Itinerary;
 use App\Models\Tour;
 use App\Models\User;
 
-test('Create Itinerary', function () {
+test('Create Itineraries', function () {
     $user = User::factory()->create();
 
     $tour = Tour::factory()->create([
@@ -15,6 +15,8 @@ test('Create Itinerary', function () {
         'tour_id' => $tour->id,
     ]);
 
+    $itinerary->setAppends([]);
+
     $this->response = $this->actingAs($user)->post(route('itineraries.store', $tour->id), $itinerary->toArray());
 
     $this->response->assertRedirect(route('tours.show', $tour->id));
@@ -22,7 +24,7 @@ test('Create Itinerary', function () {
     $this->assertDatabaseHas('itineraries', $itinerary->toArray());
 });
 
-test('Update Itinerary', function () {
+test('Update Itineraries', function () {
     $user = User::factory()->create();
 
     $tour = Tour::factory()->create([
@@ -32,6 +34,8 @@ test('Update Itinerary', function () {
     $itinerary = Itinerary::factory()->create([
         'tour_id' => $tour->id,
     ]);
+
+    $itinerary->setAppends([]);
 
     $this->response = $this->actingAs($user)->put(route('itineraries.update', [
         'tour' => $tour->id,
@@ -43,7 +47,7 @@ test('Update Itinerary', function () {
     $this->assertDatabaseHas('itineraries', $itinerary->toArray());
 });
 
-test('Delete Itinerary', function () {
+test('Delete Itineraries', function () {
     $user = User::factory()->create();
 
     $tour = Tour::factory()->create([
@@ -53,6 +57,8 @@ test('Delete Itinerary', function () {
     $itinerary = Itinerary::factory()->create([
         'tour_id' => $tour->id,
     ]);
+
+    $itinerary->setAppends([]);
 
     $this->response = $this->actingAs($user)->delete(route('itineraries.destroy', [
         'tour' => $tour->id,

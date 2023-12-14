@@ -18,19 +18,23 @@ class ItineraryFactory extends Factory
      */
     public function definition(): array
     {
+        $tour = Tour::factory()->create();
+
+        $start_time = $tour->start_date->addHours($this->faker->numberBetween(1, 8));
+        $end_time = $start_time->addHours($this->faker->numberBetween(1, 8));
+
         return [
-            'tour_id' => Tour::factory()->create()->id,
+            'tour_id' => $tour->id,
 
             'days_number' => $this->faker->numberBetween(1, 10),
-            'order' => $this->faker->numberBetween(1, 10),
 
             'destination' => $this->faker->text(100),
             'eat' => $this->faker->text(100),
             'leisure' => $this->faker->text(100),
             'travel_by' => $this->faker->text(100),
 
-            'start_at' => $this->faker->dateTimeBetween('now', '+1 months')->format('Y-m-d'),
-            'end_at' => $this->faker->dateTimeBetween('+1 months', '+2 months')->format('Y-m-d'),
+            'start_at' => $start_time->format('H:i'),
+            'end_at' => $end_time->format('H:i'),
 
             'location' => $this->faker->text(100),
             'activities' => $this->faker->text(100),

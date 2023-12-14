@@ -24,15 +24,14 @@ class ItineraryRequest extends FormRequest
     {
         return [
             'days_number' => 'required|numeric',
-            'order' => 'required|numeric',
 
             'destination' => 'required|string',
             'eat' => 'required|string',
             'leisure' => 'required|string',
             'travel_by' => 'required|string',
 
-            'start_at' => 'required|date',
-            'end_at' => 'required|date',
+            'start_at' => 'required|date_format:H:i',
+            'end_at' => 'required|date_format:H:i',
 
             'location' => 'required|string',
             'activities' => 'required|string',
