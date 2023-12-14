@@ -91,4 +91,10 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     booking: Booking;
     bookings: BookingPagination;
     booking_grand_total: number;
+    dashboard: {
+        totalBookings: number;
+        totalTours: number;
+        totalEarnings: number;
+        totalUsers: number;
+    }
 };
