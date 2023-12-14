@@ -4,8 +4,9 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {PageProps} from "@/types";
 import PrimaryButton from "@/Components/PrimaryButton";
 import {FaEdit, FaTrash} from "react-icons/fa";
+import PaginationLinks from "@/Components/PaginationLinks";
 
-export default function Show({auth, tour}: PageProps) {
+export default function Show({auth, tour, itineraries, pagination_per_page}: PageProps) {
     const deleteItinerary = (tourId: number, itineraryId: number) => {
         router.delete(route('itineraries.destroy', {
             tour: tourId,
@@ -42,14 +43,20 @@ export default function Show({auth, tour}: PageProps) {
 
             <div className="max-w-3xl mx-auto sm:px-6 lg:px-8 pb-10">
 
-                <div className="flex">
+                <div className="flex bg-white shadow-md rounded px-8 pt-6 justify-between justify-center mb-5">
                     <h2 className="mb-5 text-lg text-bold mr-5">Itineraries</h2>
                     <Link href={route('itineraries.create', {tour: tour.id})}>
                         <PrimaryButton className="ml-auto">Add Itinerary</PrimaryButton>
                     </Link>
                 </div>
 
-                {tour.itineraries.map(itinerary => (
+                {itineraries.total > pagination_per_page && (
+                    <PaginationLinks pagination={itineraries} onPageChange={
+                        (page: number) => router.replace(route('tours.show', {tour: tour.id, page}))
+                    }/>)
+                }
+
+                {itineraries.data.map(itinerary => (
                     <div className="bg-white shadow-md" key={itinerary.id}>
                         <div className="bg-sky-500 px-8 py-1 flex justify-between items-center">
                             <h4 className="text-lg text-white">{itinerary.human_readable_days_number}</h4>

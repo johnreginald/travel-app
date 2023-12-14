@@ -7,7 +7,7 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import {FaEdit, FaEye, FaTrash} from "react-icons/fa";
 import PaginationLinks from "@/Components/PaginationLinks";
 
-export default function Index({auth, tours}: PageProps) {
+export default function Index({auth, tours, pagination_per_page}: PageProps) {
     const deleteTour = (id: number) => {
         router.delete(route('tours.destroy', id));
     };
@@ -114,9 +114,11 @@ export default function Index({auth, tours}: PageProps) {
                     </tbody>
                 </table>
 
-                <PaginationLinks pagination={tours} onPageChange={
-                    (page: number) => router.replace(route('tours.index', {page: page}))
-                }/>
+                {tours.total > pagination_per_page && (
+                    <PaginationLinks pagination={tours} onPageChange={
+                        (page: number) => router.replace(route('tours.index', {page: page}))
+                    }/>
+                )}
             </div>
         </AuthenticatedLayout>
     );

@@ -39,6 +39,10 @@ interface TourPagination extends Pagination {
     data: Tour[];
 }
 
+interface ItineraryPagination extends Pagination {
+    data: Itinerary[];
+}
+
 export interface Tour {
     id: number;
     name: string;
@@ -61,8 +65,6 @@ export interface Tour {
     human_readable_start_date: string;
     human_readable_end_date: string;
     image_url: string;
-
-    itineraries: Itinerary[];
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
@@ -73,4 +75,6 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     tour: Tour;
     itinerary: Itinerary;
     pagination: Pagination;
+    itineraries: ItineraryPagination;
+    pagination_per_page: number;
 };

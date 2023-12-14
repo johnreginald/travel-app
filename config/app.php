@@ -185,4 +185,8 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'pagination' => [
+        'per_page' => env('PAGINATION_PER_PAGE', 5),
+    ],
+
 ];

@@ -96,7 +96,6 @@ export default function Edit({auth, tour}: PageProps) {
                             id="image"
                             onChange={handleFileChange}
                         />
-                        {JSON.stringify(errors)}
                         {errors && <InputError message={errors.image} className="mt-2"/>}
                     </div>
 

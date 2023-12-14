@@ -17,7 +17,7 @@ class TourController extends Controller
     public function index()
     {
         return Inertia::render('Tours/Index', [
-            'tours' => Tour::latest()->paginate(5),
+            'tours' => Tour::latest('start_date')->paginate(config('app.pagination.per_page')),
         ]);
     }
 
@@ -27,9 +27,8 @@ class TourController extends Controller
     public function show(Tour $tour)
     {
         return Inertia::render('Tours/Show', [
-            'tour' => $tour->load(['itineraries' => function ($query) {
-                return $query->orderBy('days_number', 'asc');
-            }]),
+            'tour' => $tour,
+            'itineraries' => $tour->itineraries()->orderBy('days_number', 'asc')->paginate(config('app.pagination.per_page')),
         ]);
     }
 
