@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('tours', TourController::class)->middleware(['auth', 'verified']);
-Route::resource('tours/{tour}/itineraries', ItineraryController::class)->middleware(['auth', 'verified']);
+Route::resource('tours/{tour}/itineraries', ItineraryController::class)
+    ->except(['index', 'show'])
+    ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

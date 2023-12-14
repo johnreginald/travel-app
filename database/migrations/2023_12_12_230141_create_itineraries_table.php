@@ -22,7 +22,7 @@ return new class extends Migration
             $table->text('leisure')->nullable();
             $table->text('travel_by')->nullable();
 
-            $table->timeOnly('start_at')->nullable();
+            $table->time('start_at')->nullable();
             $table->time('end_at')->nullable();
 
             $table->text('location')->nullable();

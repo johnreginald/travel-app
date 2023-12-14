@@ -1,4 +1,4 @@
-import {Head, Link} from "@inertiajs/react";
+import {Head, Link, router} from "@inertiajs/react";
 import React from "react";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {PageProps} from "@/types";
@@ -6,9 +6,13 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import {FaEdit, FaTrash} from "react-icons/fa";
 
 export default function Show({auth, tour}: PageProps) {
-    const deleteItinerary = (id: number) => {
-
+    const deleteItinerary = (tourId: number, itineraryId: number) => {
+        router.delete(route('itineraries.destroy', {
+            tour: tourId,
+            itinerary: itineraryId
+        }));
     }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -59,7 +63,8 @@ export default function Show({auth, tour}: PageProps) {
                                     </div>
                                 </Link>
 
-                                <div className="text-red-600 cursor-pointer" onClick={() => deleteItinerary(tour.id)}>
+                                <div className="text-red-600 cursor-pointer"
+                                     onClick={() => deleteItinerary(tour.id, itinerary.id)}>
                                     <FaTrash/>
                                 </div>
                             </div>

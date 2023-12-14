@@ -11,14 +11,6 @@ use Inertia\Inertia;
 class ItineraryController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(ItineraryRequest $request, Tour $tour): RedirectResponse
@@ -36,14 +28,6 @@ class ItineraryController extends Controller
         return Inertia::render('Itineraries/Create', [
             'tour' => $tour,
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Itinerary $itinerary)
-    {
-        //
     }
 
     /**
