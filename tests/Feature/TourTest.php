@@ -11,6 +11,8 @@ test('Create Tour', function () {
         'user_id' => $user->id,
     ]);
 
+    $tour->setAppends([]);
+
     $image = UploadedFile::fake()->image('image.jpg');
 
     $this->response = $this->actingAs($user)->post(route('tours.store'), array_merge($tour->toArray(), ['image' => $image]));
@@ -26,6 +28,8 @@ test('Edit Tour', function () {
     $tour = Tour::factory()->create([
         'user_id' => $user->id,
     ]);
+
+    $tour->setAppends([]);
 
     $tour->name = $tour->name.' Edited';
 
@@ -44,6 +48,8 @@ test('Delete Tour', function () {
     $tour = Tour::factory()->create([
         'user_id' => $user->id,
     ]);
+
+    $tour->setAppends([]);
 
     $this->response = $this->actingAs($user)->delete(route('tours.destroy', $tour->id));
 
