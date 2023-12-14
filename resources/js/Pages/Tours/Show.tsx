@@ -21,7 +21,11 @@ export default function Show({auth, tour, itineraries, pagination_per_page}: Pag
         >
             <Head title="Tours"/>
 
-            <div className="my-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div className="my-5 max-w-3xl mx-auto sm:px-6 lg:px-8 text-end">
+                <PrimaryButton>Book now</PrimaryButton>
+            </div>
+
+            <div className="mb-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
                     <img src={tour.image_url} alt={tour.name}
