@@ -22,7 +22,12 @@ export default function Show({auth, tour, itineraries, pagination_per_page}: Pag
             <Head title="Tours"/>
 
             <div className="my-5 max-w-3xl mx-auto sm:px-6 lg:px-8 text-end">
-                <PrimaryButton>Book now</PrimaryButton>
+                <Link href={route('bookings.create', {tour: tour.id})}>
+                    <PrimaryButton>Book Tour</PrimaryButton>
+                </Link>
+                <Link href={route('bookings.index', {tour: tour.id})}>
+                    <PrimaryButton className="ml-5">View All bookings</PrimaryButton>
+                </Link>
             </div>
 
             <div className="mb-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
@@ -41,7 +46,7 @@ export default function Show({auth, tour, itineraries, pagination_per_page}: Pag
                         Date</b> - {tour.human_readable_end_date}</p>
 
                     <p className="mb-5">Group Size - minimum <b>{tour.min_people}</b> to
-                        maximum <b>{tour.max_people}</b> (current ~ {tour.current_people})</p>
+                        maximum <b>{tour.max_people}</b></p>
                 </div>
             </div>
 

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Booking;
 use App\Models\Itinerary;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -26,6 +27,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Itinerary::factory()->count(9)->create([
+            'tour_id' => $tour->id,
+        ]);
+
+        Booking::factory()->count(10)->create([
             'tour_id' => $tour->id,
         ]);
     }

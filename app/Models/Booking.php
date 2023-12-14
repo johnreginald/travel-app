@@ -12,8 +12,7 @@ class Booking extends Model
     protected $fillable = [
         'tour_id',
         'user_id',
-        'itinerary_id',
-        'status',
-        'payment_status',
+        'number_of_people',
+        'total_price',
     ];
 }

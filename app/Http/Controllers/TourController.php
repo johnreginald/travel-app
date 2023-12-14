@@ -63,7 +63,7 @@ class TourController extends Controller
     {
         $image = $request->file('image')->store('images');
 
-        auth()->user()->tours()->create(
+        $request->user()->tours()->create(
             array_merge($request->validated(), ['image' => $image])
         );
 

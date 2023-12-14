@@ -21,7 +21,6 @@ class TourFactory extends Factory
     {
         $maxPeople = $this->faker->numberBetween(1, 100);
         $minPeople = $this->faker->numberBetween(1, $maxPeople);
-        $currentPeople = $this->faker->numberBetween($minPeople, $maxPeople);
 
         return [
             'name' => $this->faker->city,
@@ -36,7 +35,7 @@ class TourFactory extends Factory
 
             'max_people' => $maxPeople,
             'min_people' => $minPeople,
-            'current_people' => $currentPeople,
+
             'status' => $this->faker->randomElement(['public', 'private']),
         ];
     }

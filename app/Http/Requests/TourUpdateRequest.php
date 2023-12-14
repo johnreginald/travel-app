@@ -33,7 +33,7 @@ class TourUpdateRequest extends FormRequest
 
             'max_people' => 'required|numeric',
             'min_people' => 'required|numeric',
-            'current_people' => 'required|numeric',
+
             'status' => 'required|string|in:public,private',
         ];
     }

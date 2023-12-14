@@ -25,7 +25,7 @@ return new class extends Migration
 
             $table->unsignedInteger('max_people');
             $table->unsignedInteger('min_people');
-            $table->unsignedInteger('current_people')->default(0);
+
             $table->text('status')->default('public');
 
             $table->softDeletes();

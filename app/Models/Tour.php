@@ -24,7 +24,7 @@ class Tour extends Model
 
         'max_people',
         'min_people',
-        'current_people',
+
         'status',
     ];
 
@@ -49,6 +49,11 @@ class Tour extends Model
     public function itineraries(): HasMany
     {
         return $this->hasMany(Itinerary::class);
+    }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
     }
 
     public function getHumanReadableStatusAttribute(): string

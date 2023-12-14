@@ -16,9 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('tour_id')->constrained()->onDelete('cascade');
 
-            $table->string('payment_status')->default('pending');
-
-            $table->timestamp('booked_at')->nullable();
+            $table->unsignedInteger('number_of_people');
+            $table->unsignedInteger('total_price');
 
             $table->timestamps();
         });

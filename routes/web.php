@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ItineraryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TourController;
@@ -40,6 +41,8 @@ Route::middleware('auth')->group(function () {
 Route::resource('tours', TourController::class)->middleware(['auth', 'verified']);
 Route::resource('tours/{tour}/itineraries', ItineraryController::class)
     ->except(['index', 'show'])
+    ->middleware(['auth', 'verified']);
+Route::resource('tours/{tour}/bookings', BookingController::class)
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

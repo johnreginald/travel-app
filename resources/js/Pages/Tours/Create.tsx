@@ -14,7 +14,6 @@ export default function Create({auth}: PageProps) {
         end_date: '',
         max_people: '',
         min_people: '',
-        current_people: '',
         status: 'public',
     });
 
@@ -154,20 +153,6 @@ export default function Create({auth}: PageProps) {
                             onChange={e => setData('min_people', e.target.value)}
                         />
                         <InputError message={errors.max_people} className="mt-2"/>
-                    </div>
-
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="current_people">
-                            Current People
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline disabled"
-                            id="current_people" type="number"
-                            placeholder="Current People"
-                            value={data.current_people}
-                            onChange={e => setData('current_people', e.target.value)}
-                        />
-                        <InputError message={errors.current_people} className="mt-2"/>
                     </div>
 
                     <div className="mb-4">

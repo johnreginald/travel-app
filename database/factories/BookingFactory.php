@@ -19,13 +19,14 @@ class BookingFactory extends Factory
      */
     public function definition(): array
     {
+        $tour = Tour::factory()->create();
+        $numberOfPeople = $this->faker->numberBetween(1, 10);
+
         return [
-            'user_id' => User::factory()->make()->id,
-            'tour_id' => Tour::factory()->make()->id,
-
-            'payment_status' => $this->faker->randomElement(['pending', 'paid']),
-
-            'booked_at' => $this->faker->dateTimeBetween('-1 months', 'now'),
+            'user_id' => User::factory()->create()->id,
+            'tour_id' => $tour->id,
+            'number_of_people' => $numberOfPeople,
+            'total_price' => $tour->price * $numberOfPeople,
         ];
     }
 }
