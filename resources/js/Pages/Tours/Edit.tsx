@@ -1,25 +1,21 @@
 import React, {ChangeEvent} from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, router, useForm} from '@inertiajs/react';
+import {Head, useForm} from '@inertiajs/react';
 import {PageProps} from "@/types";
 import InputError from "@/Components/InputError";
 
 export default function Edit({auth, tour}: PageProps) {
-    const {data, setData, post, processing, reset, errors} = useForm({
-        ...tour,
+    const {image, ...restOfTour} = tour;
+
+    const {data, setData, post, reset, errors} = useForm({
+        ...restOfTour,
+        image: new File([], ''),
+        _method: 'put',
     });
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        router.post(route('tours.update', tour.id), {
-            _method: 'put',
-            ...data,
-        }, {
-            onSuccess: () => {
-                reset();
-            },
-        });
+        post(route('tours.update', tour.id));
     };
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,7 +49,7 @@ export default function Edit({auth, tour}: PageProps) {
                             onChange={e => setData('name', e.target.value)}
                             placeholder="Destination Name"
                         />
-                        <InputError message={errors.name} className="mt-2"/>
+                        {errors && <InputError message={errors.name} className="mt-2"/>}
                     </div>
 
                     <div className="mb-4">
@@ -68,7 +64,7 @@ export default function Edit({auth, tour}: PageProps) {
                             onChange={e => setData('description', e.target.value)}
                             rows={5}
                         />
-                        <InputError message={errors.description} className="mt-2"/>
+                        {errors && <InputError message={errors.description} className="mt-2"/>}
                     </div>
 
                     <div className="mb-4">
@@ -82,7 +78,7 @@ export default function Edit({auth, tour}: PageProps) {
                             value={data.price}
                             onChange={e => setData('price', parseInt(e.target.value))}
                         />
-                        <InputError message={errors.price} className="mt-2"/>
+                        {errors && <InputError message={errors.price} className="mt-2"/>}
                     </div>
 
                     <div className="mb-4">
@@ -90,7 +86,7 @@ export default function Edit({auth, tour}: PageProps) {
                             Image
                         </label>
 
-                        {typeof data.image === 'string' && (
+                        {data.image_url && (
                             <img src={data.image_url} alt={data.name} className="w-1/4 mb-5"/>
                         )}
 
@@ -100,7 +96,8 @@ export default function Edit({auth, tour}: PageProps) {
                             id="image"
                             onChange={handleFileChange}
                         />
-                        <InputError message={errors.image} className="mt-2"/>
+                        {JSON.stringify(errors)}
+                        {errors && <InputError message={errors.image} className="mt-2"/>}
                     </div>
 
                     <div className="mb-4">
@@ -114,7 +111,7 @@ export default function Edit({auth, tour}: PageProps) {
                             value={data.start_date}
                             onChange={e => setData('start_date', e.target.value)}
                         />
-                        <InputError message={errors.start_date} className="mt-2"/>
+                        {errors && <InputError message={errors.start_date} className="mt-2"/>}
                     </div>
 
                     <div className="mb-4">
@@ -129,7 +126,7 @@ export default function Edit({auth, tour}: PageProps) {
                             value={data.end_date}
                             onChange={e => setData('end_date', e.target.value)}
                         />
-                        <InputError message={errors.end_date} className="mt-2"/>
+                        {errors && <InputError message={errors.end_date} className="mt-2"/>}
                     </div>
 
                     <div className="mb-4">
@@ -143,7 +140,7 @@ export default function Edit({auth, tour}: PageProps) {
                             value={data.max_people}
                             onChange={e => setData('max_people', parseInt(e.target.value))}
                         />
-                        <InputError message={errors.max_people} className="mt-2"/>
+                        {errors && <InputError message={errors.max_people} className="mt-2"/>}
                     </div>
 
                     <div className="mb-4">
@@ -157,7 +154,7 @@ export default function Edit({auth, tour}: PageProps) {
                             value={data.min_people}
                             onChange={e => setData('min_people', parseInt(e.target.value))}
                         />
-                        <InputError message={errors.max_people} className="mt-2"/>
+                        {errors && <InputError message={errors.max_people} className="mt-2"/>}
                     </div>
 
                     <div className="mb-4">
@@ -171,7 +168,7 @@ export default function Edit({auth, tour}: PageProps) {
                             value={data.current_people}
                             onChange={e => setData('current_people', parseInt(e.target.value))}
                         />
-                        <InputError message={errors.current_people} className="mt-2"/>
+                        {errors && <InputError message={errors.current_people} className="mt-2"/>}
                     </div>
 
                     <div className="mb-4">
@@ -187,7 +184,7 @@ export default function Edit({auth, tour}: PageProps) {
                             <option value="public">Public</option>
                             <option value="private">Private</option>
                         </select>
-                        <InputError message={errors.status} className="mt-2"/>
+                        {errors && <InputError message={errors.status} className="mt-2"/>}
                     </div>
 
                     <div className="flex items-center justify-between">
