@@ -55,6 +55,14 @@ interface Booking {
     human_readable_booking_date: string;
 }
 
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+    human_readable_created_date: string;
+}
+
 interface Pagination {
     total: number;
     per_page: number;
@@ -78,10 +86,15 @@ interface BookingPagination extends Pagination {
     data: Booking[];
 }
 
+interface UserPagination extends Pagination {
+    data: User[];
+}
+
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
         user: User;
     };
+    users: UserPagination;
     tours: TourPagination;
     tour: Tour;
     itinerary: Itinerary;
