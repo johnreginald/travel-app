@@ -8,23 +8,27 @@ import PaginationLinks from "@/Components/PaginationLinks";
 
 export default function Show({auth, tour, itineraries, pagination_per_page}: PageProps) {
     const deleteItinerary = (tourId: number, itineraryId: number) => {
-        router.delete(route('itineraries.destroy', {
-            tour: tourId,
-            itinerary: itineraryId
-        }));
+        if (confirm('Are you sure you want to delete this itinerary?')) {
+            router.delete(route('itineraries.destroy', {
+                tour: tourId,
+                itinerary: itineraryId
+            }));
+        }
     }
 
     const header = (
         <div className="flex justify-between">
             <h2 className="font-semibold text-xl text-gray-800 leading-tight">{tour.name}</h2>
-            <div>
-                <Link href={route('bookings.create', {tour: tour.id})}>
-                    <PrimaryButton>Book Tour</PrimaryButton>
-                </Link>
-                <Link href={route('bookings.index', {tour: tour.id})}>
-                    <PrimaryButton className="ml-5">View All bookings</PrimaryButton>
-                </Link>
-            </div>
+            {auth.user.roles && auth.user.roles.includes('Admin') && (
+                <div>
+                    <Link href={route('bookings.create', {tour: tour.id})}>
+                        <PrimaryButton>Book Tour</PrimaryButton>
+                    </Link>
+                    <Link href={route('bookings.index', {tour: tour.id})}>
+                        <PrimaryButton className="ml-5">View All bookings</PrimaryButton>
+                    </Link>
+                </div>
+            )}
         </div>
     )
 
@@ -42,11 +46,15 @@ export default function Show({auth, tour, itineraries, pagination_per_page}: Pag
                     </PrimaryButton>
                 </Link>
 
-                <Link href={route('tours.edit', tour.id)}>
-                    <PrimaryButton className={"py-2"}>
-                        <FaEdit/>
-                    </PrimaryButton>
-                </Link>
+                {auth.user.roles && auth.user.roles.includes('Admin') && (
+                    <>
+                        <Link href={route('tours.edit', tour.id)}>
+                            <PrimaryButton className={"py-2"}>
+                                <FaEdit/>
+                            </PrimaryButton>
+                        </Link>
+                    </>
+                )}
             </div>
 
             <div className="mb-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
@@ -78,7 +86,7 @@ export default function Show({auth, tour, itineraries, pagination_per_page}: Pag
                     </Link>
                 </div>
 
-                {itineraries.total > pagination_per_page && (
+                {itineraries.total >= pagination_per_page && (
                     <PaginationLinks pagination={itineraries} onPageChange={
                         (page: number) => router.replace(route('tours.show', {tour: tour.id, page}))
                     }/>)

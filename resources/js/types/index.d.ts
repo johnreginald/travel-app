@@ -1,10 +1,3 @@
-export interface User {
-    id: number;
-    name: string;
-    email: string;
-    email_verified_at: string;
-}
-
 export interface Tour {
     id: number;
     name: string;
@@ -60,7 +53,9 @@ interface User {
     name: string;
     email: string;
     role: string;
+    roles: string[];
     human_readable_created_date: string;
+    email_verified_at: string;
 }
 
 interface Pagination {

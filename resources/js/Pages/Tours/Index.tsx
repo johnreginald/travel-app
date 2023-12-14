@@ -9,19 +9,23 @@ import PaginationLinks from "@/Components/PaginationLinks";
 
 export default function Index({auth, tours, pagination_per_page}: PageProps) {
     const deleteTour = (id: number) => {
-        router.delete(route('tours.destroy', id));
+        if (confirm('Are you sure you want to delete this tour?')) {
+            router.delete(route('tours.destroy', id));
+        }
     };
 
     const header = (
         <div className="flex justify-between">
             <h2 className="font-semibold text-xl text-gray-800 leading-tight">Tours</h2>
-            <div>
-                <Link href={route('tours.create')}>
-                    <PrimaryButton>
-                        Create Tour
-                    </PrimaryButton>
-                </Link>
-            </div>
+            {auth.user.roles && auth.user.roles.includes('Admin') && (
+                <div>
+                    <Link href={route('tours.create')}>
+                        <PrimaryButton>
+                            Create Tour
+                        </PrimaryButton>
+                    </Link>
+                </div>
+            )}
         </div>
     )
 
@@ -102,15 +106,19 @@ export default function Index({auth, tours, pagination_per_page}: PageProps) {
                                         </PrimaryButton>
                                     </Link>
 
-                                    <Link href={route('tours.edit', tour.id)}>
-                                        <PrimaryButton className={"py-2"}>
-                                            <FaEdit/>
-                                        </PrimaryButton>
-                                    </Link>
+                                    {auth.user.roles && auth.user.roles.includes('Admin') && (
+                                        <>
+                                            <Link href={route('tours.edit', tour.id)}>
+                                                <PrimaryButton className={"py-2"}>
+                                                    <FaEdit/>
+                                                </PrimaryButton>
+                                            </Link>
 
-                                    <SecondaryButton onClick={() => deleteTour(tour.id)}>
-                                        <FaTrash/>
-                                    </SecondaryButton>
+                                            <SecondaryButton onClick={() => deleteTour(tour.id)}>
+                                                <FaTrash/>
+                                            </SecondaryButton>
+                                        </>
+                                    )}
                                 </div>
                             </td>
                         </tr>
@@ -119,7 +127,7 @@ export default function Index({auth, tours, pagination_per_page}: PageProps) {
                     </tbody>
                 </table>
 
-                {tours.total > pagination_per_page && (
+                {tours.total >= pagination_per_page && (
                     <PaginationLinks pagination={tours} onPageChange={
                         (page: number) => router.replace(route('tours.index', {page: page}))
                     }/>

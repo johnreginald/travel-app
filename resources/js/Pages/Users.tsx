@@ -48,7 +48,9 @@ export default function Index({auth, users, pagination_per_page}: PageProps) {
                                 <div className="text-sm text-gray-900">{user.email}</div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">{user.role}</div>
+                                <div
+                                    className="text-sm text-gray-900">{user.roles}
+                                </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{user.human_readable_created_date}</div>
@@ -62,8 +64,8 @@ export default function Index({auth, users, pagination_per_page}: PageProps) {
                                         })
                                     }}>
                                     <option disabled selected>Select Role</option>
-                                    <option value="Admin" selected={user.role === 'Admin'}>Admin</option>
-                                    <option value="Editor" selected={user.role === 'Editor'}>Editor</option>
+                                    <option value="Admin" selected={user.roles.includes('Admin')}>Admin</option>
+                                    <option value="Editor" selected={user.roles.includes('Editor')}>Editor</option>
                                 </select>
                             </td>
                         </tr>
@@ -72,7 +74,7 @@ export default function Index({auth, users, pagination_per_page}: PageProps) {
                     </tbody>
                 </table>
 
-                {users.total > pagination_per_page && (
+                {users.total >= pagination_per_page && (
                     <PaginationLinks pagination={users} onPageChange={
                         (page: number) => router.replace(route('users.index', {page: page}))
                     }/>
