@@ -23,7 +23,7 @@ class BookingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'number_of_people' => 'required|integer|min:1',
+            'number_of_people' => 'required|integer|min:'.$this->tour->min_people.'|max:'.$this->tour->max_people,
         ];
     }
 }

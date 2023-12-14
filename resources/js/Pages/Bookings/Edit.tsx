@@ -6,14 +6,17 @@ import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
 import {FaChevronLeft} from "react-icons/fa";
 
-export default function Create({auth, tour}: PageProps) {
-    const {data, setData, post, processing, reset, errors} = useForm({
-        'number_of_people': 1,
+export default function Create({auth, tour, booking}: PageProps) {
+    const {data, setData, put, processing, reset, errors} = useForm({
+        ...booking
     });
 
     const submit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        post(route('bookings.store', tour.id), {onSuccess: () => reset()});
+        put(route('bookings.update', {
+            tour: tour.id,
+            booking: booking.id
+        }), {onSuccess: () => reset()});
     };
 
     return (
@@ -53,7 +56,7 @@ export default function Create({auth, tour}: PageProps) {
 
                     <div className="flex items-center justify-between">
                         <PrimaryButton type="submit" className="py-2">
-                            Book
+                            Update Booking
                         </PrimaryButton>
                     </div>
                 </form>

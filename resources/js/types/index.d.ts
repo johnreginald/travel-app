@@ -90,4 +90,5 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     pagination_per_page: number;
     booking: Booking;
     bookings: BookingPagination;
+    booking_grand_total: number;
 };

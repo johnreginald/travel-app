@@ -43,6 +43,7 @@ Route::resource('tours/{tour}/itineraries', ItineraryController::class)
     ->except(['index', 'show'])
     ->middleware(['auth', 'verified']);
 Route::resource('tours/{tour}/bookings', BookingController::class)
+    ->except(['show'])
     ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

@@ -51,11 +51,6 @@ class Tour extends Model
         return $this->hasMany(Itinerary::class);
     }
 
-    public function bookings(): HasMany
-    {
-        return $this->hasMany(Booking::class);
-    }
-
     public function getHumanReadableStatusAttribute(): string
     {
         return ucfirst($this->status);
@@ -79,5 +74,10 @@ class Tour extends Model
     public function getImageUrlAttribute(): string
     {
         return Storage::url($this->image);
+    }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
     }
 }

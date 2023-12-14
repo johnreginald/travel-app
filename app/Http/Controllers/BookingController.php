@@ -19,6 +19,7 @@ class BookingController extends Controller
         return Inertia::render('Bookings/Index', [
             'tour' => $tour,
             'bookings' => $tour->bookings()->paginate(config('app.pagination.per_page')),
+            'booking_grand_total' => '$'.number_format($tour->bookings()->sum('total_price')),
         ]);
     }
 
@@ -50,19 +51,14 @@ class BookingController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Booking $booking)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Booking $booking)
+    public function edit(Tour $tour, Booking $booking)
     {
-        //
+        return Inertia::render('Bookings/Edit', [
+            'tour' => $tour,
+            'booking' => $booking,
+        ]);
     }
 
     /**

@@ -7,10 +7,17 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import {FaChevronLeft, FaEdit, FaTrash} from "react-icons/fa";
 import PaginationLinks from "@/Components/PaginationLinks";
 
-export default function Index({auth, tour, bookings, pagination_per_page}: PageProps) {
+export default function Index({auth, tour, bookings, booking_grand_total, pagination_per_page}: PageProps) {
+
+
     const deleteBooking = (id: number) => {
-        router.delete(route('tours.destroy', id));
-    };
+        if (confirm('Are you sure you want to delete this booking?')) {
+            router.delete(route('bookings.destroy', {
+                tour: tour.id,
+                booking: id
+            }));
+        }
+    }
 
     const header = (
         <div className="flex justify-between">
@@ -84,7 +91,10 @@ export default function Index({auth, tour, bookings, pagination_per_page}: PageP
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex gap-2">
-                                    <Link href={route('tours.edit', booking.id)}>
+                                    <Link href={route('bookings.edit', {
+                                        tour: tour.id,
+                                        booking: booking.id
+                                    })}>
                                         <PrimaryButton className={"py-2"}>
                                             <FaEdit/>
                                         </PrimaryButton>
@@ -97,6 +107,15 @@ export default function Index({auth, tour, bookings, pagination_per_page}: PageP
                             </td>
                         </tr>
                     ))}
+
+                    <tr>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">Total Bookings: <b>{bookings.data.length}</b></div>
+                        </td>
+                        <td colSpan={3} className="px-6 py-4 whitespace-nowrap">
+                            <div className="text-sm text-gray-900">Grand Total: <b>{booking_grand_total}</b></div>
+                        </td>
+                    </tr>
 
                     </tbody>
                 </table>
