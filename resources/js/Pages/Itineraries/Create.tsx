@@ -181,11 +181,9 @@ export default function Create({auth, tour}: PageProps) {
                     )}
 
                     <div className="flex items-center justify-between">
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit">
+                        <PrimaryButton type="submit" className="py-2">
                             Add
-                        </button>
+                        </PrimaryButton>
                     </div>
                 </form>
             </div>

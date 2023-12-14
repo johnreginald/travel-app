@@ -35,10 +35,16 @@ export default function Show({auth, tour, itineraries, pagination_per_page}: Pag
         >
             <Head title="Tours"/>
 
-            <div className="mt-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div className="flex justify-between max-w-3xl mx-auto sm:px-6 lg:px-8 mt-5">
                 <Link href={route('tours.index')}>
                     <PrimaryButton className="mb-4">
                         <FaChevronLeft/> Back
+                    </PrimaryButton>
+                </Link>
+
+                <Link href={route('tours.edit', tour.id)}>
+                    <PrimaryButton className={"py-2"}>
+                        <FaEdit/>
                     </PrimaryButton>
                 </Link>
             </div>

@@ -39,7 +39,7 @@ export default function Edit({auth, tour}: PageProps) {
                         <FaChevronLeft/> Back
                     </PrimaryButton>
                 </Link>
-                
+
                 <form onSubmit={submit}
                       className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
@@ -179,11 +179,9 @@ export default function Edit({auth, tour}: PageProps) {
                     </div>
 
                     <div className="flex items-center justify-between">
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit">
-                            Update
-                        </button>
+                        <PrimaryButton type="submit" className="py-2">
+                            Update Tour
+                        </PrimaryButton>
                     </div>
                 </form>
             </div>
