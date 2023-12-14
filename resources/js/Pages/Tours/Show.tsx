@@ -3,7 +3,7 @@ import React from "react";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {PageProps} from "@/types";
 import PrimaryButton from "@/Components/PrimaryButton";
-import {FaEdit, FaTrash} from "react-icons/fa";
+import {FaChevronLeft, FaEdit, FaTrash} from "react-icons/fa";
 import PaginationLinks from "@/Components/PaginationLinks";
 
 export default function Show({auth, tour, itineraries, pagination_per_page}: PageProps) {
@@ -14,14 +14,10 @@ export default function Show({auth, tour, itineraries, pagination_per_page}: Pag
         }));
     }
 
-    return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tours</h2>}
-        >
-            <Head title="Tours"/>
-
-            <div className="my-5 max-w-3xl mx-auto sm:px-6 lg:px-8 text-end">
+    const header = (
+        <div className="flex justify-between">
+            <h2 className="font-semibold text-xl text-gray-800 leading-tight">{tour.name}</h2>
+            <div>
                 <Link href={route('bookings.create', {tour: tour.id})}>
                     <PrimaryButton>Book Tour</PrimaryButton>
                 </Link>
@@ -29,12 +25,29 @@ export default function Show({auth, tour, itineraries, pagination_per_page}: Pag
                     <PrimaryButton className="ml-5">View All bookings</PrimaryButton>
                 </Link>
             </div>
+        </div>
+    )
+
+    return (
+        <AuthenticatedLayout
+            user={auth.user}
+            header={header}
+        >
+            <Head title="Tours"/>
+
+            <div className="mt-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
+                <Link href={route('tours.index')}>
+                    <PrimaryButton className="mb-4">
+                        <FaChevronLeft/> Back
+                    </PrimaryButton>
+                </Link>
+            </div>
 
             <div className="mb-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
 
                     <img src={tour.image_url} alt={tour.name}
-                         className="mb-5 border rounded-lg shadow"/>
+                         className="mb-5 border rounded-lg shadow" width={400}/>
 
                     <h4 className="mb-5 text-lg">{tour.name} - {tour.human_readable_status} Tour</h4>
 

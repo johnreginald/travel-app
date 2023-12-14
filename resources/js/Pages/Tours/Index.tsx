@@ -12,20 +12,25 @@ export default function Index({auth, tours, pagination_per_page}: PageProps) {
         router.delete(route('tours.destroy', id));
     };
 
-    return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tours</h2>}
-        >
-            <Head title="Tours"/>
-
-            <div className="mt-5 max-w-7xl mx-auto sm:px-6 lg:px-8">
+    const header = (
+        <div className="flex justify-between">
+            <h2 className="font-semibold text-xl text-gray-800 leading-tight">Tours</h2>
+            <div>
                 <Link href={route('tours.create')}>
                     <PrimaryButton>
                         Create Tour
                     </PrimaryButton>
                 </Link>
             </div>
+        </div>
+    )
+
+    return (
+        <AuthenticatedLayout
+            user={auth.user}
+            header={header}
+        >
+            <Head title="Tours"/>
 
             <div className="mt-5 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <h2 className="mb-5 text-lg text-bold">Tour Packages</h2>

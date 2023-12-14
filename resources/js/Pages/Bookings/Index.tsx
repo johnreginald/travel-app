@@ -4,7 +4,7 @@ import {Head, Link, router} from '@inertiajs/react';
 import {PageProps} from "@/types";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
-import {FaEdit, FaEye, FaTrash} from "react-icons/fa";
+import {FaChevronLeft, FaEdit, FaTrash} from "react-icons/fa";
 import PaginationLinks from "@/Components/PaginationLinks";
 
 export default function Index({auth, tour, bookings, pagination_per_page}: PageProps) {
@@ -12,24 +12,35 @@ export default function Index({auth, tour, bookings, pagination_per_page}: PageP
         router.delete(route('tours.destroy', id));
     };
 
+    const header = (
+        <div className="flex justify-between">
+            <h2 className="font-semibold text-xl text-gray-800 leading-tight">Booking for Tour - {tour.name}</h2>
+            <div>
+                <Link href={route('bookings.create', tour.id)}>
+                    <PrimaryButton>
+                        Book Another
+                    </PrimaryButton>
+                </Link>
+            </div>
+        </div>
+    )
+
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Bookings</h2>}
+            header={header}
         >
             <Head title="Bookings"/>
 
             <div className="mt-5 max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <Link href={route('tours.create')}>
-                    <PrimaryButton>
-                        Create Tour
+                <Link href={route('tours.show', tour.id)}>
+                    <PrimaryButton className="mb-4">
+                        <FaChevronLeft/> Back
                     </PrimaryButton>
                 </Link>
             </div>
 
-            <div className="mt-5 max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <h2 className="mb-5 text-lg text-bold">Booking for Tour - {tour.name}</h2>
-
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                     <tr>
@@ -73,12 +84,6 @@ export default function Index({auth, tour, bookings, pagination_per_page}: PageP
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex gap-2">
-                                    <Link href={route('tours.show', booking.id)}>
-                                        <PrimaryButton className={"py-2"}>
-                                            <FaEye/>
-                                        </PrimaryButton>
-                                    </Link>
-
                                     <Link href={route('tours.edit', booking.id)}>
                                         <PrimaryButton className={"py-2"}>
                                             <FaEdit/>

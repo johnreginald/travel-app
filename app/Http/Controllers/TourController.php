@@ -53,7 +53,7 @@ class TourController extends Controller
 
         $tour->update(array_merge($request->validated(), ['image' => $image ?? $tour->image]));
 
-        return redirect()->route('tours.index');
+        return redirect()->route('tours.show', $tour->id);
     }
 
     /**

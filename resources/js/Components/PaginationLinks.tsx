@@ -28,10 +28,10 @@ const PaginationLinks: React.FC<PaginationProps> = ({pagination, onPageChange}) 
                         <button
                             onClick={() => handlePageChange(current_page - 1)}
                             disabled={current_page === 1}
-                            className={`px-3 py-1 rounded-md ${
+                            className={`px-3 rounded-md ${
                                 current_page === 1
                                     ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
-                                    : 'bg-blue-500 text-white hover:bg-blue-600'
+                                    : 'bg-gray-800 text-white hover:bg-gray-600'
                             }`}
                         >
                             Previous
@@ -41,9 +41,9 @@ const PaginationLinks: React.FC<PaginationProps> = ({pagination, onPageChange}) 
                         <li key={page}>
                             <button
                                 onClick={() => handlePageChange(page)}
-                                className={`px-3 py-1 rounded-md ${
+                                className={`px-3 rounded-md ${
                                     page === current_page
-                                        ? 'bg-blue-500 text-white'
+                                        ? 'bg-gray-800 text-white'
                                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                                 }`}
                             >
@@ -55,10 +55,10 @@ const PaginationLinks: React.FC<PaginationProps> = ({pagination, onPageChange}) 
                         <button
                             onClick={() => handlePageChange(current_page + 1)}
                             disabled={current_page === last_page}
-                            className={`px-3 py-1 rounded-md ${
+                            className={`px-3 rounded-md ${
                                 current_page === last_page
                                     ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
-                                    : 'bg-blue-500 text-white hover:bg-blue-600'
+                                    : 'bg-gray-800 text-white hover:bg-gray-600'
                             }`}
                         >
                             Next

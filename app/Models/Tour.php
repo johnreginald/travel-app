@@ -63,7 +63,7 @@ class Tour extends Model
 
     public function getHumanReadablePriceAttribute(): string
     {
-        return '$'.$this->price;
+        return '$'.number_format($this->price);
     }
 
     public function getHumanReadableStartDateAttribute(): string

@@ -1,8 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, useForm} from '@inertiajs/react';
+import {Head, Link, useForm} from '@inertiajs/react';
 import {PageProps} from "@/types";
 import InputError from "@/Components/InputError";
+import PrimaryButton from "@/Components/PrimaryButton";
+import {FaChevronLeft} from "react-icons/fa";
 
 export default function Create({auth}: PageProps) {
     const {data, setData, post, processing, reset, errors} = useForm({
@@ -31,15 +33,19 @@ export default function Create({auth}: PageProps) {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Tours</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Create Tour</h2>}
         >
-            <Head title="Tours"/>
+            <Head title="Create new Tour"/>
 
             <div className="mt-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
+                <Link href={route('tours.index')}>
+                    <PrimaryButton className="mb-4">
+                        <FaChevronLeft/> Back
+                    </PrimaryButton>
+                </Link>
+
                 <form onSubmit={submit}
                       className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-
-                    <h4 className="mb-5 text-lg">Create Tour</h4>
 
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
