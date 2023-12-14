@@ -5,48 +5,6 @@ export interface User {
     email_verified_at: string;
 }
 
-export interface Itinerary {
-    id: number;
-    days_number: number;
-
-    destination: string;
-    eat: string;
-    leisure: string;
-    travel_by: string;
-
-    start_at: string;
-    end_at: string;
-
-    location: string;
-    activities: string;
-    other_details: string;
-
-    human_readable_days_number: string;
-}
-
-interface Pagination {
-    total: number;
-    per_page: number;
-    current_page: number;
-    last_page: number;
-    next_page_url: string | null;
-    prev_page_url: string | null;
-    from: number;
-    to: number;
-}
-
-interface TourPagination extends Pagination {
-    data: Tour[];
-}
-
-interface ItineraryPagination extends Pagination {
-    data: Itinerary[];
-}
-
-interface Booking {
-    number_of_people: number;
-}
-
 export interface Tour {
     id: number;
     name: string;
@@ -71,6 +29,55 @@ export interface Tour {
     image_url: string;
 }
 
+export interface Itinerary {
+    id: number;
+    days_number: number;
+
+    destination: string;
+    eat: string;
+    leisure: string;
+    travel_by: string;
+
+    start_at: string;
+    end_at: string;
+
+    location: string;
+    activities: string;
+    other_details: string;
+
+    human_readable_days_number: string;
+}
+
+interface Booking {
+    id: number;
+    number_of_people: number;
+    total_price: number;
+    human_readable_booking_date: string;
+}
+
+interface Pagination {
+    total: number;
+    per_page: number;
+    current_page: number;
+    last_page: number;
+    next_page_url: string | null;
+    prev_page_url: string | null;
+    from: number;
+    to: number;
+}
+
+interface TourPagination extends Pagination {
+    data: Tour[];
+}
+
+interface ItineraryPagination extends Pagination {
+    data: Itinerary[];
+}
+
+interface BookingPagination extends Pagination {
+    data: Booking[];
+}
+
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
         user: User;
@@ -82,4 +89,5 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     itineraries: ItineraryPagination;
     pagination_per_page: number;
     booking: Booking;
+    bookings: BookingPagination;
 };

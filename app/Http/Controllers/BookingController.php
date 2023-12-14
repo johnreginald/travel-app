@@ -14,9 +14,12 @@ class BookingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Tour $tour): Response
     {
-        //
+        return Inertia::render('Bookings/Index', [
+            'tour' => $tour,
+            'bookings' => $tour->bookings()->paginate(config('app.pagination.per_page')),
+        ]);
     }
 
     /**
