@@ -56,4 +56,5 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     };
     tours: Tour[];
     tour: Tour;
+    itinerary: Itinerary;
 };

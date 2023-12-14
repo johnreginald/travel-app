@@ -32,8 +32,18 @@ class Itinerary extends Model
         'human_readable_days_number',
     ];
 
-    protected function getHumanReadableDaysNumberAttribute($value)
+    protected function getHumanReadableDaysNumberAttribute(): string
     {
         return 'DAY '.$this->days_number;
+    }
+
+    protected function getStartAtAttribute($value): string
+    {
+        return date('H:i', strtotime($value));
+    }
+
+    protected function getEndAtAttribute($value): string
+    {
+        return date('H:i', strtotime($value));
     }
 }

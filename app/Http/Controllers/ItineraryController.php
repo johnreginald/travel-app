@@ -49,9 +49,12 @@ class ItineraryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Itinerary $itinerary)
+    public function edit(Tour $tour, Itinerary $itinerary)
     {
-        //
+        return Inertia::render('Itineraries/Edit', [
+            'tour' => $tour,
+            'itinerary' => $itinerary,
+        ]);
     }
 
     /**

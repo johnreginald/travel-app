@@ -20,8 +20,8 @@ class ItineraryFactory extends Factory
     {
         $tour = Tour::factory()->create();
 
-        $start_time = $tour->start_date->addHours($this->faker->numberBetween(1, 8));
-        $end_time = $start_time->addHours($this->faker->numberBetween(1, 8));
+        $start_time = $tour->start_date->addHours(1);
+        $end_time = $tour->start_date->addHours(8);
 
         return [
             'tour_id' => $tour->id,
