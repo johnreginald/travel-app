@@ -17,7 +17,7 @@ class TourController extends Controller
     public function index()
     {
         return Inertia::render('Tours/Index', [
-            'tours' => Tour::latest()->get(),
+            'tours' => Tour::latest()->paginate(5),
         ]);
     }
 

@@ -24,6 +24,21 @@ export interface Itinerary {
     human_readable_days_number: string;
 }
 
+interface Pagination {
+    total: number;
+    per_page: number;
+    current_page: number;
+    last_page: number;
+    next_page_url: string | null;
+    prev_page_url: string | null;
+    from: number;
+    to: number;
+}
+
+interface TourPagination extends Pagination {
+    data: Tour[];
+}
+
 export interface Tour {
     id: number;
     name: string;
@@ -54,7 +69,8 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     auth: {
         user: User;
     };
-    tours: Tour[];
+    tours: TourPagination;
     tour: Tour;
     itinerary: Itinerary;
+    pagination: Pagination;
 };

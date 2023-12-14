@@ -5,6 +5,7 @@ import {PageProps} from "@/types";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
 import {FaEdit, FaEye, FaTrash} from "react-icons/fa";
+import PaginationLinks from "@/Components/PaginationLinks";
 
 export default function Index({auth, tours}: PageProps) {
     const deleteTour = (id: number) => {
@@ -59,7 +60,7 @@ export default function Index({auth, tours}: PageProps) {
                     </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                    {tours.length === 0 &&
+                    {tours.data.length === 0 &&
                         <tr>
                             <td colSpan={4} className="px-6 py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">No tours found.</div>
@@ -67,7 +68,7 @@ export default function Index({auth, tours}: PageProps) {
                         </tr>
                     }
 
-                    {tours.map((tour) => (
+                    {tours.data.map((tour) => (
                         <tr key={tour.id}>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="flex items-center">
@@ -109,8 +110,13 @@ export default function Index({auth, tours}: PageProps) {
                             </td>
                         </tr>
                     ))}
+
                     </tbody>
                 </table>
+
+                <PaginationLinks pagination={tours} onPageChange={
+                    (page: number) => router.replace(route('tours.index', {page: page}))
+                }/>
             </div>
         </AuthenticatedLayout>
     );
