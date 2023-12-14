@@ -11,7 +11,10 @@ test('Create booking for a tour', function () {
     $booking = Booking::factory()->make([
         'tour_id' => $tour->id,
         'user_id' => $user->id,
+        'number_of_people' => $tour->min_people,
     ]);
+
+    $booking->setAppends([]);
 
     $response = $this->actingAs($user)->post(route('bookings.store', $tour->id), $booking->toArray());
 
@@ -34,13 +37,14 @@ test('Update booking for a tour', function () {
     $booking = Booking::factory()->create([
         'tour_id' => $tour->id,
         'user_id' => $user->id,
+        'number_of_people' => $tour->min_people,
     ]);
 
     $response = $this->actingAs($user)->put(route('bookings.update', [
         'tour' => $tour->id,
         'booking' => $booking->id,
     ]), [
-        'number_of_people' => 5,
+        'number_of_people' => $tour->max_people,
     ]);
 
     $response->assertRedirect(route('bookings.index', [
@@ -49,7 +53,7 @@ test('Update booking for a tour', function () {
 
     $this->assertDatabaseHas('bookings', [
         'id' => $booking->id,
-        'number_of_people' => 5,
+        'number_of_people' => $tour->max_people,
     ]);
 });
 
