@@ -22,6 +22,38 @@ test('Create Tour', function () {
     $this->assertDatabaseHas('tours', array_merge($tour->toArray(), ['image' => 'images/'.$image->hashName()]));
 });
 
+test('Tour Listing', function () {
+    $user = User::factory()->create();
+
+    $tour = Tour::factory()->create([
+        'user_id' => $user->id,
+    ]);
+
+    $tour->setAppends([]);
+
+    $this->response = $this->actingAs($user)->get(route('tours.index'));
+
+    $this->response->assertStatus(200);
+
+    $this->response->assertSee($tour->name);
+});
+
+test('View Tour detail', function () {
+    $user = User::factory()->create();
+
+    $tour = Tour::factory()->create([
+        'user_id' => $user->id,
+    ]);
+
+    $tour->setAppends([]);
+
+    $this->response = $this->actingAs($user)->get(route('tours.show', $tour->id));
+
+    $this->response->assertStatus(200);
+
+    $this->response->assertSee($tour->name);
+});
+
 test('Edit Tour', function () {
     $user = User::factory()->create();
 

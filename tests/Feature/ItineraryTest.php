@@ -24,6 +24,26 @@ test('Create Itineraries', function () {
     $this->assertDatabaseHas('itineraries', $itinerary->toArray());
 });
 
+test('View Itineraries of tour', function () {
+    $user = User::factory()->create();
+
+    $tour = Tour::factory()->create([
+        'user_id' => $user->id,
+    ]);
+
+    $itinerary = Itinerary::factory()->create([
+        'tour_id' => $tour->id,
+    ]);
+
+    $itinerary->setAppends([]);
+
+    $this->response = $this->actingAs($user)->get(route('tours.show', $tour->id));
+
+    $this->response->assertStatus(200);
+
+    $this->response->assertSee($itinerary->name);
+});
+
 test('Update Itineraries', function () {
     $user = User::factory()->create();
 
