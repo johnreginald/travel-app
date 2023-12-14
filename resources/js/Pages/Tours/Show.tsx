@@ -1,9 +1,11 @@
-import {Head} from "@inertiajs/react";
+import {Head, Link} from "@inertiajs/react";
 import React from "react";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {PageProps} from "@/types";
+import PrimaryButton from "@/Components/PrimaryButton";
 
 export default function Show({auth, tour}: PageProps) {
+    console.log(tour.itineraries)
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -31,7 +33,34 @@ export default function Show({auth, tour}: PageProps) {
                 </div>
             </div>
 
+            <div className="mt-5 max-w-3xl mx-auto sm:px-6 lg:px-8">
 
+                <div className="flex">
+                    <h2 className="mb-5 text-lg text-bold mr-5">Itineraries</h2>
+                    <Link href={route('itineraries.create', {tour: tour.id})}>
+                        <PrimaryButton className="ml-auto">Add Itinerary</PrimaryButton>
+                    </Link>
+                </div>
+
+
+                {tour.itineraries.map(itinerary => (
+                    <div className="bg-white shadow-md rounded" key={itinerary.id}>
+                        <h4 className="text-lg bg-sky-500 px-8 py-1 text-white">{itinerary.human_readable_days_number}</h4>
+                        <div className="px-8 py-3 mb-4">
+                            <p className="mb-5"><b>Destination:</b> {itinerary.destination}</p>
+                            <p className="mb-5"><b>Location:</b> {itinerary.location}</p>
+                            <p className="mb-5">
+                                <b>Start at</b> - {itinerary.human_readable_start_at} ~ <b>End
+                                at</b> - {itinerary.human_readable_end_at}
+                            </p>
+                            <p className="mb-5"><b>Transport:</b> {itinerary.travel_by}</p>
+                            <p>
+                                <b>Activities</b>: {itinerary.eat}, {itinerary.leisure}, {itinerary.activities}, {itinerary.other_details}
+                            </p>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </AuthenticatedLayout>
     )
 }

@@ -19,7 +19,7 @@ class ItineraryFactory extends Factory
     public function definition(): array
     {
         return [
-            'tour_id' => Tour::factory()->make()->id,
+            'tour_id' => Tour::factory()->create()->id,
 
             'days_number' => $this->faker->numberBetween(1, 10),
             'order' => $this->faker->numberBetween(1, 10),

@@ -5,6 +5,27 @@ export interface User {
     email_verified_at: string;
 }
 
+export interface Itinerary {
+    id: number;
+    days_number: number;
+
+    destination: string;
+    eat: string;
+    leisure: string;
+    travel_by: string;
+
+    start_at: string;
+    end_at: string;
+
+    location: string;
+    activities: string;
+    other_details: string;
+
+    human_readable_days_number: string;
+    human_readable_start_at: string;
+    human_readable_end_at: string;
+}
+
 export interface Tour {
     id: number;
     name: string;
@@ -27,6 +48,8 @@ export interface Tour {
     human_readable_start_date: string;
     human_readable_end_date: string;
     image_url: string;
+
+    itineraries: Itinerary[];
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
