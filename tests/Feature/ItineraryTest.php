@@ -5,7 +5,9 @@ use App\Models\Tour;
 use App\Models\User;
 
 test('Create Itineraries', function () {
+    $this->seed(['RoleSeeder']);
     $user = User::factory()->create();
+    $user->assignRole('Admin');
 
     $tour = Tour::factory()->create([
         'user_id' => $user->id,
@@ -25,7 +27,9 @@ test('Create Itineraries', function () {
 });
 
 test('View Itineraries of tour', function () {
+    $this->seed(['RoleSeeder']);
     $user = User::factory()->create();
+    $user->assignRole('Admin');
 
     $tour = Tour::factory()->create([
         'user_id' => $user->id,
@@ -45,7 +49,9 @@ test('View Itineraries of tour', function () {
 });
 
 test('Update Itineraries', function () {
+    $this->seed(['RoleSeeder']);
     $user = User::factory()->create();
+    $user->assignRole('Admin');
 
     $tour = Tour::factory()->create([
         'user_id' => $user->id,
@@ -68,7 +74,9 @@ test('Update Itineraries', function () {
 });
 
 test('Delete Itineraries', function () {
+    $this->seed(['RoleSeeder']);
     $user = User::factory()->create();
+    $user->assignRole('Admin');
 
     $tour = Tour::factory()->create([
         'user_id' => $user->id,

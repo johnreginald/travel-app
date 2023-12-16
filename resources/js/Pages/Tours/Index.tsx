@@ -17,7 +17,7 @@ export default function Index({auth, tours, pagination_per_page}: PageProps) {
     const header = (
         <div className="flex justify-between">
             <h2 className="font-semibold text-xl text-gray-800 leading-tight">Tours</h2>
-            {auth.user.roles && auth.user.roles.includes('admin') && (
+            {auth.user.roles && auth.user.roles.includes('Admin') && (
                 <div>
                     <Link href={route('tours.create')}>
                         <PrimaryButton>
@@ -106,7 +106,7 @@ export default function Index({auth, tours, pagination_per_page}: PageProps) {
                                         </PrimaryButton>
                                     </Link>
 
-                                    {auth.user.roles && auth.user.roles.includes('admin') && (
+                                    {auth.user.roles && auth.user.roles.includes('Admin') && (
                                         <>
                                             <Link href={route('tours.edit', tour.id)}>
                                                 <PrimaryButton className={"py-2"}>

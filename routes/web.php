@@ -32,9 +32,9 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::group(['middleware' => ['auth', 'role:admin']], function () {
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
-    Route::put('users/{user}', [UserController::class, 'upgradeRole'])->name('users.upgradeRole');
+Route::group(['middleware' => ['auth', 'role:Admin']], function () {
+    Route::resource('users', UserController::class)
+        ->except(['store', 'show', 'create']);
 
     Route::resource('tours', TourController::class);
     Route::resource('tours/{tour}/itineraries', ItineraryController::class)->except(['index', 'show']);

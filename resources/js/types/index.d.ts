@@ -91,6 +91,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: User;
     };
     users: UserPagination;
+    user: User;
     tours: TourPagination;
     tour: Tour;
     itinerary: Itinerary;

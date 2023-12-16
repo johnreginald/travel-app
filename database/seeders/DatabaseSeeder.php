@@ -7,7 +7,6 @@ use App\Models\Booking;
 use App\Models\Itinerary;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,8 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $adminRole = Role::create(['name' => 'admin']);
-        $editorRole = Role::create(['name' => 'editor']);
+        $this->call(RoleSeeder::class);
 
         $user = User::factory()->create([
             'name' => 'Admin',
@@ -25,13 +23,18 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        $user->assignRole($adminRole);
+        $user->assignRole('Admin');
 
         $editorUser = User::factory()->create([
             'name' => 'Editor',
             'email' => 'editor@gmail.com',
         ]);
-        $editorUser->assignRole($editorRole);
+        $editorUser->assignRole('Editor');
+
+        $user = User::factory()->create([
+            'name' => 'User',
+        ]);
+        $user->assignRole('User');
 
         // create tour with 10 itineraries
         $tour = Itinerary::factory()->create([

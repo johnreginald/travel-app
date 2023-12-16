@@ -148,7 +148,7 @@ export default function Create({auth}: PageProps) {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="max_people">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="min_people">
                             Min People
                         </label>
                         <input
@@ -162,7 +162,7 @@ export default function Create({auth}: PageProps) {
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="max_people">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="status">
                             Status
                         </label>
                         <select

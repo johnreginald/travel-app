@@ -5,7 +5,9 @@ use App\Models\User;
 use Illuminate\Http\UploadedFile;
 
 test('Create Tour', function () {
+    $this->seed(['RoleSeeder']);
     $user = User::factory()->create();
+    $user->assignRole('Admin');
 
     $tour = Tour::factory()->make([
         'user_id' => $user->id,
@@ -23,7 +25,9 @@ test('Create Tour', function () {
 });
 
 test('Tour Listing', function () {
+    $this->seed(['RoleSeeder']);
     $user = User::factory()->create();
+    $user->assignRole('Admin');
 
     $tour = Tour::factory()->create([
         'user_id' => $user->id,
@@ -39,7 +43,9 @@ test('Tour Listing', function () {
 });
 
 test('View Tour detail', function () {
+    $this->seed(['RoleSeeder']);
     $user = User::factory()->create();
+    $user->assignRole('Admin');
 
     $tour = Tour::factory()->create([
         'user_id' => $user->id,
@@ -55,7 +61,9 @@ test('View Tour detail', function () {
 });
 
 test('Edit Tour', function () {
+    $this->seed(['RoleSeeder']);
     $user = User::factory()->create();
+    $user->assignRole('Admin');
 
     $tour = Tour::factory()->create([
         'user_id' => $user->id,
@@ -75,7 +83,9 @@ test('Edit Tour', function () {
 });
 
 test('Delete Tour', function () {
+    $this->seed(['RoleSeeder']);
     $user = User::factory()->create();
+    $user->assignRole('Admin');
 
     $tour = Tour::factory()->create([
         'user_id' => $user->id,

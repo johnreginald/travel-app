@@ -1,10 +1,20 @@
 import React from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import {Head, router} from '@inertiajs/react';
+import {Head, Link, router} from '@inertiajs/react';
 import {PageProps} from "@/types";
 import PaginationLinks from "@/Components/PaginationLinks";
+import PrimaryButton from "@/Components/PrimaryButton";
+import {FaEdit, FaTrash} from "react-icons/fa";
+import SecondaryButton from "@/Components/SecondaryButton";
 
 export default function Index({auth, users, pagination_per_page}: PageProps) {
+
+    const deleteUser = (id: number) => {
+        if (confirm('Are you sure you want to delete this user?')) {
+            router.delete(route('users.destroy', id));
+        }
+    };
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -56,17 +66,21 @@ export default function Index({auth, users, pagination_per_page}: PageProps) {
                                 <div className="text-sm text-gray-900">{user.human_readable_created_date}</div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                                <select
-                                    className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline disabled"
-                                    onChange={(e) => {
-                                        router.put(route('users.upgradeRole', {user: user.id}), {
-                                            role: e.target.value
-                                        })
-                                    }}>
-                                    <option disabled selected>Select Role</option>
-                                    <option value="admin" selected={user.roles.includes('admin')}>Admin</option>
-                                    <option value="editor" selected={user.roles.includes('editor')}>Editor</option>
-                                </select>
+                                <div className="flex gap-2">
+                                    {auth.user.roles && auth.user.roles.includes('Admin') && (
+                                        <>
+                                            <Link href={route('users.edit', user.id)}>
+                                                <PrimaryButton className={"py-2"}>
+                                                    <FaEdit/>
+                                                </PrimaryButton>
+                                            </Link>
+
+                                            <SecondaryButton onClick={() => deleteUser(user.id)}>
+                                                <FaTrash/>
+                                            </SecondaryButton>
+                                        </>
+                                    )}
+                                </div>
                             </td>
                         </tr>
                     ))}

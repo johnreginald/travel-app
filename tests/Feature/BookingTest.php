@@ -5,8 +5,10 @@ use App\Models\Tour;
 use App\Models\User;
 
 test('Create booking for a tour', function () {
+    $this->seed(['RoleSeeder']);
     $tour = Tour::factory()->create();
     $user = User::factory()->create();
+    $user->assignRole('Admin');
 
     $booking = Booking::factory()->make([
         'tour_id' => $tour->id,
@@ -31,8 +33,12 @@ test('Create booking for a tour', function () {
 });
 
 test('Update booking for a tour', function () {
-    $tour = Tour::factory()->create();
+    $this->seed(['RoleSeeder']);
     $user = User::factory()->create();
+    $tour = Tour::factory()->create([
+        'user_id' => $user->id,
+    ]);
+    $user->assignRole('Admin');
 
     $booking = Booking::factory()->create([
         'tour_id' => $tour->id,
@@ -58,8 +64,10 @@ test('Update booking for a tour', function () {
 });
 
 test('Delete a booking from a tour', function () {
-    $tour = Tour::factory()->create();
+    $this->seed(['RoleSeeder']);
     $user = User::factory()->create();
+    $tour = Tour::factory()->create();
+    $user->assignRole('Admin');
 
     $booking = Booking::factory()->create([
         'tour_id' => $tour->id,

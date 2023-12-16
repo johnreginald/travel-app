@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('price');
             $table->string('image');
 
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
             $table->timestamp('start_date');
             $table->timestamp('end_date');
