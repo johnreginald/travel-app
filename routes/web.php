@@ -32,21 +32,19 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::put('users/{user}', [UserController::class, 'upgradeRole'])->name('users.upgradeRole');
+
+    Route::resource('tours', TourController::class);
+    Route::resource('tours/{tour}/itineraries', ItineraryController::class)->except(['index', 'show']);
+    Route::resource('tours/{tour}/bookings', BookingController::class)->except(['show']);
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-Route::get('users', [UserController::class, 'index'])->middleware(['auth', 'verified'])->name('users.index');
-Route::put('users/{user}', [UserController::class, 'upgradeRole'])->middleware(['auth', 'verified'])->name('users.upgradeRole');
-
-Route::resource('tours', TourController::class)->middleware(['auth', 'verified']);
-Route::resource('tours/{tour}/itineraries', ItineraryController::class)
-    ->except(['index', 'show'])
-    ->middleware(['auth', 'verified']);
-Route::resource('tours/{tour}/bookings', BookingController::class)
-    ->except(['show'])
-    ->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

@@ -19,7 +19,7 @@ export default function Show({auth, tour, itineraries, pagination_per_page}: Pag
     const header = (
         <div className="flex justify-between">
             <h2 className="font-semibold text-xl text-gray-800 leading-tight">{tour.name}</h2>
-            {auth.user.roles && auth.user.roles.includes('Admin') && (
+            {auth.user.roles && auth.user.roles.includes('admin') && (
                 <div>
                     <Link href={route('bookings.create', {tour: tour.id})}>
                         <PrimaryButton>Book Tour</PrimaryButton>
@@ -46,7 +46,7 @@ export default function Show({auth, tour, itineraries, pagination_per_page}: Pag
                     </PrimaryButton>
                 </Link>
 
-                {auth.user.roles && auth.user.roles.includes('Admin') && (
+                {auth.user.roles && auth.user.roles.includes('admin') && (
                     <>
                         <Link href={route('tours.edit', tour.id)}>
                             <PrimaryButton className={"py-2"}>

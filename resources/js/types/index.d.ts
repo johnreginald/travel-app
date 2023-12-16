@@ -83,6 +83,7 @@ interface BookingPagination extends Pagination {
 
 interface UserPagination extends Pagination {
     data: User[];
+    meta: Pagination;
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {

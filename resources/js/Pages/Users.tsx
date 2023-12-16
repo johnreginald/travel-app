@@ -49,7 +49,7 @@ export default function Index({auth, users, pagination_per_page}: PageProps) {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                                 <div
-                                    className="text-sm text-gray-900">{user.roles}
+                                    className="text-sm text-gray-900">{user.roles.join(', ')}
                                 </div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
@@ -64,8 +64,8 @@ export default function Index({auth, users, pagination_per_page}: PageProps) {
                                         })
                                     }}>
                                     <option disabled selected>Select Role</option>
-                                    <option value="Admin" selected={user.roles.includes('Admin')}>Admin</option>
-                                    <option value="Editor" selected={user.roles.includes('Editor')}>Editor</option>
+                                    <option value="admin" selected={user.roles.includes('admin')}>Admin</option>
+                                    <option value="editor" selected={user.roles.includes('editor')}>Editor</option>
                                 </select>
                             </td>
                         </tr>
@@ -74,8 +74,8 @@ export default function Index({auth, users, pagination_per_page}: PageProps) {
                     </tbody>
                 </table>
 
-                {users.total >= pagination_per_page && (
-                    <PaginationLinks pagination={users} onPageChange={
+                {users.meta.total >= pagination_per_page && (
+                    <PaginationLinks pagination={users.meta} onPageChange={
                         (page: number) => router.replace(route('users.index', {page: page}))
                     }/>
                 )}

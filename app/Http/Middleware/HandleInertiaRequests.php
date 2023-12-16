@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
                 'location' => $request->url(),
             ],
             'pagination_per_page' => config('app.pagination.per_page'),
+            'auth.user.roles' => fn () => $request->user()->getRoleNames(),
         ];
     }
 }

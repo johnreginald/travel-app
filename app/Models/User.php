@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -48,7 +47,6 @@ class User extends Authenticatable
 
     protected $appends = [
         'human_readable_created_date',
-        'roles',
     ];
 
     public function tours(): HasMany
@@ -59,10 +57,5 @@ class User extends Authenticatable
     public function getHumanReadableCreatedDateAttribute()
     {
         return $this->created_at->diffForHumans();
-    }
-
-    public function getRolesAttribute(): Collection
-    {
-        return $this->roles()->pluck('name');
     }
 }

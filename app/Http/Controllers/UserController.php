@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class UserController extends Controller
     public function index(): Response
     {
         return Inertia::render('Users', [
-            'users' => User::latest()->paginate(config('app.pagination.per_page')),
+            'users' => UserResource::collection(User::latest()->paginate(config('app.pagination.per_page'))),
         ]);
     }
 
